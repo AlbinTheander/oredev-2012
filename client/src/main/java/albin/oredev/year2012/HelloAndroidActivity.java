@@ -3,7 +3,6 @@ package albin.oredev.year2012;
 import albin.oredev.year2012.server.model.Speaker;
 import albin.oredev.year2012.ui.SpeakerAdapter;
 import android.app.ListActivity;
-import android.util.Log;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.Toast;
@@ -32,10 +31,8 @@ public class HelloAndroidActivity extends ListActivity {
 			@Override
 			public void onScrollStateChanged(AbsListView view, int scrollState) {
 				if (scrollState == OnScrollListener.SCROLL_STATE_FLING) {
-					Log.d("Oredev", "Stop loading images");
 					adapter.loadImages(false);
 				} else {
-					Log.d("Oredev", "Start loading images");
 					adapter.loadImages(true);
 				}
 			}
@@ -43,12 +40,9 @@ public class HelloAndroidActivity extends ListActivity {
 			@Override
 			public void onScroll(AbsListView view, int firstVisibleItem,
 					int visibleItemCount, int totalItemCount) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
-
-
 	}
 	
 	@ItemClick(android.R.id.list)
