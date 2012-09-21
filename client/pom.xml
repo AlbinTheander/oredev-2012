@@ -2,18 +2,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>albin.oredev.year2012</groupId>
-	<artifactId>client</artifactId>
+	<groupId>albin.oredev2012</groupId>
+	<artifactId>android-client</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<packaging>apk</packaging>
-	<name>client</name>
+	<name>oredev 2012 - Android client</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
-			<version>2.2.1</version>
+			<version>4.1.1.4</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>annotations</artifactId>
+			<version>4.1.1.4</version>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.androidannotations</groupId>
