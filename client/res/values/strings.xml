@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello client!</string>
-    <string name="app_name">client</string>
+    <string name="app_name">Øredev 2012</string>
+    <string name="speakers_title">Speakers</string>
 </resources>

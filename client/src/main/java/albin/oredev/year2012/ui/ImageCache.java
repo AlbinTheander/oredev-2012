@@ -1,66 +1,75 @@
 package albin.oredev.year2012.ui;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v4.util.LruCache;
+import android.util.Log;
 
-import com.googlecode.androidannotations.annotations.Background;
+import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EBean;
 
 @EBean
 public class ImageCache {
-	
-	
+
+	@Bean
+	protected ImageLoader imageLoader;
+
 	public interface OnImageLoadedListener {
 		void onImageLoaded(String url, Bitmap bitmap);
 	}
-	
-	private LruCache<String, Bitmap> memCache;
-	
+
+	private LruCache<String, BitmapEntry> memCache;
+
 	public ImageCache() {
-		memCache = new LruCache<String, Bitmap>(4*1024*1024) {
+		memCache = new LruCache<String, BitmapEntry>(4 * 1024 * 1024) {
 			@Override
-	        protected int sizeOf(String key, Bitmap value) {
-	               return value.getRowBytes() * value.getHeight();
-	       }
-	    };
+			protected int sizeOf(String key, BitmapEntry value) {
+				if (value.bitmap == null)
+					return 0;
+				return value.bitmap.getRowBytes() * value.bitmap.getHeight();
+			}
+		};
 	}
-	
-	public Bitmap getImage(String url, OnImageLoadedListener callback) {
+
+	public Bitmap getImage(String url, boolean useNonMemoryCaches,
+			OnImageLoadedListener callback) {
+		BitmapEntry entry;
+		synchronized (memCache) {
+			entry = memCache.get(url);
+
+			if (entry == null && useNonMemoryCaches) {
+				Log.d("Oredev", "Submitting image loading job");
+				memCache.put(url, new BitmapEntry());
+				imageLoader.loadImage(url, new LoaderJob(callback));
+				return null;
+			}
+		}
+		return entry == null ? null : entry.bitmap;
+	}
+
+	private class BitmapEntry {
 		Bitmap bitmap;
-		synchronized(memCache) {
-		    bitmap = memCache.get(url);
-		}
-		 
-		if(bitmap == null) {
-		    getImageFromServer(url, callback);
-		}
-		return bitmap;
 	}
 
-	@Background
-	protected void getImageFromServer(String url, OnImageLoadedListener callback) {
-		try {
-			URL imageUrl = new URL(url);
-			InputStream in = (InputStream) imageUrl.getContent();
-			Bitmap bitmap = BitmapFactory.decodeStream(in);
-		    synchronized(memCache) {
-		        memCache.put(url, bitmap);
-		    }
-		    callback.onImageLoaded(url, bitmap);
+	private class LoaderJob implements ImageLoader.LoadListener {
 
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		private final OnImageLoadedListener listener;
+
+		public LoaderJob(OnImageLoadedListener listener) {
+			this.listener = listener;
 		}
+
+		@Override
+		public void onLoadFinished(boolean success, String url, Bitmap bitmap) {
+			if (!success)
+				return;
+			synchronized (memCache) {
+				BitmapEntry entry = new BitmapEntry();
+				entry.bitmap = bitmap;
+				memCache.put(url, entry);
+			}
+			listener.onImageLoaded(url, bitmap);
+		}
+
 	}
 
 }

@@ -3,21 +3,14 @@ package albin.oredev.year2012.ui;
 import java.util.Collections;
 import java.util.List;
 
-import albin.oredev.year2012.R;
 import albin.oredev.year2012.Repository;
 import albin.oredev.year2012.server.model.Speaker;
 import albin.oredev.year2012.ui.ImageCache.OnImageLoadedListener;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.googlecode.androidannotations.annotations.AfterInject;
 import com.googlecode.androidannotations.annotations.Background;
@@ -41,7 +34,7 @@ public class SpeakerAdapter extends BaseAdapter implements
 
 	private List<Speaker> speakers = Collections.emptyList();
 
-	private Bitmap empty = Bitmap.createBitmap(90, 90, Bitmap.Config.RGB_565);
+	private boolean loadImages = true;
 
 	@AfterInject
 	protected void init() {
@@ -58,6 +51,12 @@ public class SpeakerAdapter extends BaseAdapter implements
 	protected void updateSpeakers(List<Speaker> newSpeakers) {
 		speakers = newSpeakers;
 		notifyDataSetChanged();
+	}
+
+	public void loadImages(boolean loadImages) {
+		this.loadImages  = loadImages;
+		if (loadImages)
+			notifyDataSetChanged();
 	}
 
 	@Override
@@ -85,7 +84,7 @@ public class SpeakerAdapter extends BaseAdapter implements
 			view = SpeakerListItemView_.build(context);
 		}
 		Speaker speaker = speakers.get(position);
-		Bitmap bitmap = imageCache.getImage(speaker.getImageUrl(), this);
+		Bitmap bitmap = imageCache.getImage(speaker.getImageUrl(), loadImages, this);
 		view.bind(speaker.getName(), bitmap);
 		return view;
 	}
