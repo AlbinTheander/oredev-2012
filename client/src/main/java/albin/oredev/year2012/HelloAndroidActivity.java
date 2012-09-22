@@ -15,7 +15,7 @@ import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.ItemClick;
 
-@EActivity(R.layout.main)
+@EActivity(R.layout.speakers)
 public class HelloAndroidActivity extends ListActivity {
 
 	@Bean
