@@ -4,19 +4,27 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 @Root(strict = false)
+@DatabaseTable
 public class Speaker {
 
 	@Attribute
+	@DatabaseField(id=true)
 	private String id;
 
 	@Attribute
+	@DatabaseField
 	private String name;
 
 	@Attribute(name = "photoFile")
+	@DatabaseField
 	private String imageUrl;
 	
 	@Element
+	@DatabaseField
 	private String biography;
 
 	public String getId() {

@@ -23,6 +23,7 @@
 			<groupId>com.google.android</groupId>
 			<artifactId>annotations</artifactId>
 			<version>4.1.1.4</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.androidannotations</groupId>
@@ -66,6 +67,11 @@
 			<groupId>com.google.android</groupId>
 			<artifactId>support-v4</artifactId>
 			<version>r7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.j256.ormlite</groupId>
+			<artifactId>ormlite-android</artifactId>
+			<version>4.41</version>
 		</dependency>
 	</dependencies>
 
