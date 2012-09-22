@@ -1,4 +1,4 @@
-package albin.oredev.year2012.ui;
+package albin.oredev.year2012.imageCache;
 
 import java.io.IOException;
 import java.io.InputStream;

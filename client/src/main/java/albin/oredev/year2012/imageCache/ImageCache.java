@@ -1,9 +1,9 @@
-package albin.oredev.year2012.ui;
+package albin.oredev.year2012.imageCache;
 
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
-import android.util.Log;
 
+import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EBean;
 
@@ -12,6 +12,9 @@ public class ImageCache {
 
 	@Bean
 	protected ImageLoader imageLoader;
+
+	@Bean
+	protected ImageFileCache fileCache;
 
 	public interface OnImageLoadedListener {
 		void onImageLoaded(String url, Bitmap bitmap);
@@ -36,14 +39,28 @@ public class ImageCache {
 		synchronized (memCache) {
 			entry = memCache.get(url);
 
-			if (entry == null && useNonMemoryCaches) {
-				Log.d("Oredev", "Submitting image loading job");
+			if (entry == null) {
 				memCache.put(url, new BitmapEntry());
-				imageLoader.loadImage(url, new LoaderJob(callback));
+				loadInBackground(url, callback, useNonMemoryCaches);
 				return null;
 			}
 		}
 		return entry == null ? null : entry.bitmap;
+	}
+
+	@Background
+	protected void loadInBackground(String url, OnImageLoadedListener callback, boolean useNonMemoryCaches) {
+		Bitmap bitmap = fileCache.get(url);
+		if (bitmap == null && useNonMemoryCaches) {
+			imageLoader.loadImage(url, new LoaderJob(callback));
+		} else if(bitmap != null) {
+			synchronized (memCache) {
+				BitmapEntry entry = new BitmapEntry();
+				entry.bitmap = bitmap;
+				memCache.put(url, entry); 
+			}
+			callback.onImageLoaded(url, bitmap);
+		}
 	}
 
 	private class BitmapEntry {
@@ -62,6 +79,7 @@ public class ImageCache {
 		public void onLoadFinished(boolean success, String url, Bitmap bitmap) {
 			if (!success)
 				return;
+			fileCache.put(url, bitmap);
 			synchronized (memCache) {
 				BitmapEntry entry = new BitmapEntry();
 				entry.bitmap = bitmap;
