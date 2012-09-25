@@ -39,20 +39,50 @@ public class ImageCache {
 		synchronized (memCache) {
 			entry = memCache.get(url);
 
-			if (entry == null) {
+			if (entry == null && useNonMemoryCaches) {
 				memCache.put(url, new BitmapEntry());
-				loadInBackground(url, callback, useNonMemoryCaches);
+				loadInBackground(url, callback);
 				return null;
 			}
 		}
 		return entry == null ? null : entry.bitmap;
 	}
 
+	public void cache(String url, OnImageLoadedListener callback) {
+		BitmapEntry entry;
+		synchronized (memCache) {
+			entry = memCache.get(url);
+
+			if (entry == null) {
+				memCache.put(url, new BitmapEntry());
+				loadImage(url, callback);
+			}
+		}
+		if (entry == null) {
+			Bitmap bitmap = fileCache.get(url);
+			if (bitmap == null) {
+				bitmap = imageLoader.loadImage(url);
+			}
+			if(bitmap != null) {
+				synchronized (memCache) {
+					entry = new BitmapEntry();
+					entry.bitmap = bitmap;
+					memCache.put(url, entry); 
+				}
+				callback.onImageLoaded(url, bitmap);
+			}
+		}
+	}
+
 	@Background
-	protected void loadInBackground(String url, OnImageLoadedListener callback, boolean useNonMemoryCaches) {
+	protected void loadInBackground(String url, OnImageLoadedListener callback) {
+		loadImage(url, callback);
+	}
+
+	private void loadImage(String url, OnImageLoadedListener callback) {
 		Bitmap bitmap = fileCache.get(url);
-		if (bitmap == null && useNonMemoryCaches) {
-			imageLoader.loadImage(url, new LoaderJob(callback));
+		if (bitmap == null) {
+			imageLoader.loadImageAsync(url, new LoaderJob(callback));
 		} else if(bitmap != null) {
 			synchronized (memCache) {
 				BitmapEntry entry = new BitmapEntry();

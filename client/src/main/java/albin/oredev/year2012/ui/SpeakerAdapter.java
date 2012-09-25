@@ -2,16 +2,20 @@ package albin.oredev.year2012.ui;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import albin.oredev.year2012.Repository;
 import albin.oredev.year2012.imageCache.ImageCache;
 import albin.oredev.year2012.imageCache.ImageCache.OnImageLoadedListener;
+import albin.oredev.year2012.imageCache.ImageLoadingLock;
 import albin.oredev.year2012.server.model.Speaker;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
 import android.widget.SectionIndexer;
 
@@ -24,7 +28,7 @@ import com.googlecode.androidannotations.annotations.UiThread;
 
 @EBean
 public class SpeakerAdapter extends BaseAdapter implements
-		OnImageLoadedListener, SectionIndexer {
+		OnImageLoadedListener, SectionIndexer, OnScrollListener {
 
 	@Bean
 	protected Repository repo;
@@ -37,9 +41,9 @@ public class SpeakerAdapter extends BaseAdapter implements
 
 	private List<Speaker> speakers = Collections.emptyList();
 
-	private boolean loadImages = true;
-
 	private Section[] sections = new Section[0];
+
+	private ImageLoadingLock imageLoadingLock = new ImageLoadingLock();
 
 	@AfterInject
 	protected void init() {
@@ -51,7 +55,19 @@ public class SpeakerAdapter extends BaseAdapter implements
 		List<Speaker> newSpeakers = repo.getSpeakers();
 		Section[] sections = buildSections(newSpeakers);
 		updateSpeakers(newSpeakers, sections);
+		preloadImages(newSpeakers);
+	}
 
+	private void preloadImages(List<Speaker> speakers) {
+		Iterator<Speaker> iterator = speakers.iterator();
+		while (iterator.hasNext()) {
+			if (imageLoadingLock.isLocked()) {
+				imageLoadingLock.waitUntilUnlocked(1000);
+				continue;
+			}
+			Speaker speaker = iterator.next();
+			imageCache.cache(speaker.getImageUrl(), this);
+		}
 	}
 
 	private Section[] buildSections(List<Speaker> speakers) {
@@ -77,10 +93,20 @@ public class SpeakerAdapter extends BaseAdapter implements
 	}
 
 	@UiThread
-	public void loadImages(boolean loadImages) {
-		this.loadImages = loadImages;
-		if (loadImages)
+	protected void fireUpdate() {
+		notifyDataSetChanged();
+	}
+
+	@UiThread
+	protected void loadImages(boolean loadImages) {
+		if (loadImages && imageLoadingLock.isLocked()) {
 			notifyDataSetChanged();
+		}
+		if (loadImages) {
+			imageLoadingLock.unlock();
+		} else {
+			imageLoadingLock.lock();
+		}
 	}
 
 	@Override
@@ -108,22 +134,58 @@ public class SpeakerAdapter extends BaseAdapter implements
 			view = SpeakerListItemView_.build(context);
 		}
 		Speaker speaker = speakers.get(position);
-		Bitmap bitmap = imageCache.getImage(speaker.getImageUrl(), loadImages,
-				this);
+		Bitmap bitmap = imageCache.getImage(speaker.getImageUrl(),
+				!imageLoadingLock.isLocked(), this);
 		view.bind(speaker.getName(), bitmap);
 		return view;
 	}
+
+	//----------------------------------------------------
+	// Start of OnImageLoaded implementation
+	//----------------------------------------------------
 
 	@Override
 	public void onImageLoaded(String url, Bitmap bitmap) {
 		fireUpdate();
 	}
 
-	@UiThread
-	protected void fireUpdate() {
-		notifyDataSetChanged();
+	//----------------------------------------------------
+	// End of OnImageLoaded implementation
+	//----------------------------------------------------
+
+
+	//----------------------------------------------------
+	// Start of AbsListView.OnScrollListener callbacks
+	//----------------------------------------------------
+
+	/* (non-Javadoc)
+	 * @see android.widget.AbsListView.OnScrollListener#onScroll(android.widget.AbsListView, int, int, int)
+	 */
+	@Override
+	public void onScroll(AbsListView view, int firstVisibleItem,
+			int visibleItemCount, int totalItemCount) {
 	}
 
+	/* (non-Javadoc)
+	 * @see android.widget.AbsListView.OnScrollListener#onScrollStateChanged(android.widget.AbsListView, int)
+	 */
+	@Override
+	public void onScrollStateChanged(AbsListView view, int scrollState) {
+		if (scrollState == OnScrollListener.SCROLL_STATE_FLING) {
+			loadImages(false);
+		} else {
+			loadImages(true);
+		}
+	}
+
+	//----------------------------------------------------
+	// End of AbsListView.OnScrollListener callbacks
+	//----------------------------------------------------
+
+	//----------------------------------------------------
+	// Start of SectionIndexer implementation
+	//----------------------------------------------------
+	
 	@Override
 	public int getPositionForSection(int section) {
 		return sections[section].pos;
@@ -135,9 +197,9 @@ public class SpeakerAdapter extends BaseAdapter implements
 			return 0;
 		for (int i = 0; i < sections.length; i++) {
 			if (sections[i].pos > position)
-				return i == 0 ? 0 : i-1;
+				return i == 0 ? 0 : i - 1;
 		}
-		return sections.length-1;
+		return sections.length - 1;
 	}
 
 	@Override
@@ -159,5 +221,9 @@ public class SpeakerAdapter extends BaseAdapter implements
 			return name;
 		}
 	}
+
+	//----------------------------------------------------
+	// End of SectionIndexer implementation
+	//----------------------------------------------------
 
 }

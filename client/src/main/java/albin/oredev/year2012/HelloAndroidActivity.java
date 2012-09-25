@@ -2,11 +2,7 @@ package albin.oredev.year2012;
 
 import albin.oredev.year2012.server.model.Speaker;
 import albin.oredev.year2012.ui.SpeakerAdapter;
-import android.annotation.SuppressLint;
 import android.app.ListActivity;
-import android.os.Build;
-import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.Toast;
 
 import com.googlecode.androidannotations.annotations.AfterInject;
@@ -25,30 +21,10 @@ public class HelloAndroidActivity extends ListActivity {
 	protected void init() {
 		setListAdapter(adapter);
 	}
-
-	@SuppressLint("NewApi")
+	
 	@AfterViews
 	protected void initViews() {
-		getListView().setOnScrollListener(new OnScrollListener() {
-
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-				if (scrollState == OnScrollListener.SCROLL_STATE_FLING) {
-					adapter.loadImages(false);
-				} else {
-					adapter.loadImages(true);
-				}
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-					getListView().setFastScrollAlwaysVisible(true);
-				}
-			}
-
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem,
-					int visibleItemCount, int totalItemCount) {
-
-			}
-		});
+		getListView().setOnScrollListener(adapter);
 	}
 
 	@ItemClick(android.R.id.list)

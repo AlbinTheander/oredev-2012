@@ -31,7 +31,7 @@ public class ImageLoader {
 		loaderService = new ThreadPoolExecutor(2, 2, 0L, TimeUnit.MILLISECONDS,
 				new LinkedBlockingQueue<Runnable>());
 		loaderService.setThreadFactory(new ThreadFactory() {
-			
+
 			@Override
 			public Thread newThread(Runnable r) {
 				Thread t = new Thread(r);
@@ -41,12 +41,27 @@ public class ImageLoader {
 		});
 	}
 
-	public void loadImage(String url, LoadListener callback) {
+	public Bitmap loadImage(String url) {
+		try {
+			URL imageUrl = new URL(url);
+			InputStream in = (InputStream) imageUrl.getContent();
+			Bitmap bitmap = BitmapFactory.decodeStream(in);
+			StreamUtil.closeSilently(in);
+			return bitmap;
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public void loadImageAsync(String url, LoadListener callback) {
 		LoaderJob job = new LoaderJob(url, callback);
 		loaderService.submit(job);
 	}
 
-	private static class LoaderJob implements Callable<Void> {
+	private static class LoaderJob implements Callable<Bitmap> {
 		private String url;
 		private LoadListener listener;
 
@@ -56,13 +71,15 @@ public class ImageLoader {
 		}
 
 		@Override
-		public Void call() throws Exception {
+		public Bitmap call() throws Exception {
 			try {
 				URL imageUrl = new URL(url);
 				InputStream in = (InputStream) imageUrl.getContent();
 				Bitmap bitmap = BitmapFactory.decodeStream(in);
 				StreamUtil.closeSilently(in);
-				listener.onLoadFinished(true, url, bitmap);
+				if (listener != null)
+					listener.onLoadFinished(true, url, bitmap);
+				return bitmap;
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
