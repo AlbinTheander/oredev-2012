@@ -86,9 +86,13 @@ public class SpeakerAdapter extends BaseAdapter implements
 	@UiThread
 	protected void updateSpeakers(List<Speaker> newSpeakers,
 			Section[] newSections) {
-		speakers = newSpeakers;
-		sections = newSections;
-		notifyDataSetChanged();
+		try {
+			speakers = newSpeakers;
+			sections = newSections;
+			notifyDataSetChanged();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@UiThread

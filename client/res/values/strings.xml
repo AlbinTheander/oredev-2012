@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Øredev 2012</string>
     <string name="speakers_title">Speakers</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_speaker_detail">SpeakerDetailActivity</string>
+    
+    <!-- Content description strings for images -->
+    <string name="cd_speaker_image">Speaker image</string>
+
 </resources>

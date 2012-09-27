@@ -73,4 +73,13 @@ public class Repository {
 		}
 		db.close();
 	}
+
+	public Speaker getSpeaker(String speakerId) {
+		getSpeakers();
+		for(Speaker speaker: speakerList) {
+			if (speakerId.equals(speaker.getId()))
+				return speaker;
+		}
+		return null;
+	}
 }

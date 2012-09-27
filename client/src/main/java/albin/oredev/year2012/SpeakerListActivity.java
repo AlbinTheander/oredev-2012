@@ -3,7 +3,6 @@ package albin.oredev.year2012;
 import albin.oredev.year2012.model.Speaker;
 import albin.oredev.year2012.ui.SpeakerAdapter;
 import android.app.ListActivity;
-import android.widget.Toast;
 
 import com.googlecode.androidannotations.annotations.AfterInject;
 import com.googlecode.androidannotations.annotations.AfterViews;
@@ -11,14 +10,15 @@ import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.ItemClick;
 
-@EActivity(R.layout.speakers)
-public class HelloAndroidActivity extends ListActivity {
+@EActivity(R.layout.activity_speaker_list)
+public class SpeakerListActivity extends ListActivity {
 
 	@Bean
 	protected SpeakerAdapter adapter;
 
 	@AfterInject
 	protected void init() {
+		setTitle(R.string.speakers_title);
 		setListAdapter(adapter);
 	}
 	
@@ -29,7 +29,7 @@ public class HelloAndroidActivity extends ListActivity {
 
 	@ItemClick(android.R.id.list)
 	protected void openSpeaker(Speaker speaker) {
-		Toast.makeText(this, speaker.getName(), Toast.LENGTH_SHORT).show();
+		SpeakerDetailActivity_.intent(this).speakerId(speaker.getId()).start();
 	}
 
 }
