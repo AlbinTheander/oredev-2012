@@ -22,6 +22,9 @@ public class SpeakerDTO {
 	private String biography;
 
 	public Speaker toSpeaker() {
+		if (biography != null && biography.indexOf("\n") >= 0) {
+			biography = biography.replace("\n", " ");
+		}
 		return new Speaker(id, name, photoFile, biography);
 	}
 }
