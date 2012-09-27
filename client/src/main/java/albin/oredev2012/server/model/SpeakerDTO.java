@@ -1,10 +1,10 @@
-package albin.oredev.year2012.server.model;
+package albin.oredev2012.server.model;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-import albin.oredev.year2012.model.Speaker;
+import albin.oredev2012.model.Speaker;
 
 @Root(strict = false, name="speaker")
 public class SpeakerDTO {

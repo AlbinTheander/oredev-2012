@@ -1,6 +1,6 @@
-package albin.oredev.year2012.ui;
+package albin.oredev2012.ui;
 
-import albin.oredev.year2012.R;
+import albin.oredev2012.R;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.widget.ImageView;

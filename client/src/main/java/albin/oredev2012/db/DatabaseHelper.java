@@ -1,8 +1,8 @@
-package albin.oredev.year2012.db;
+package albin.oredev2012.db;
 
 import java.sql.SQLException;
 
-import albin.oredev.year2012.model.Speaker;
+import albin.oredev2012.model.Speaker;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;

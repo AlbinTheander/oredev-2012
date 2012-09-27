@@ -1,9 +1,9 @@
-package albin.oredev.year2012;
+package albin.oredev2012;
 
-import albin.oredev.year2012.imageCache.ImageCache;
-import albin.oredev.year2012.imageCache.ImageCache.OnImageLoadedListener;
-import albin.oredev.year2012.model.Speaker;
-import albin.oredev.year2012.repo.Repository;
+import albin.oredev2012.imageCache.ImageCache;
+import albin.oredev2012.imageCache.ImageCache.OnImageLoadedListener;
+import albin.oredev2012.model.Speaker;
+import albin.oredev2012.repo.Repository;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;

@@ -1,4 +1,4 @@
-package albin.oredev.year2012.imageCache;
+package albin.oredev2012.imageCache;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,8 +7,8 @@ import java.io.OutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import albin.oredev.year2012.util.Logg;
-import albin.oredev.year2012.util.StreamUtil;
+import albin.oredev2012.util.Logg;
+import albin.oredev2012.util.StreamUtil;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;

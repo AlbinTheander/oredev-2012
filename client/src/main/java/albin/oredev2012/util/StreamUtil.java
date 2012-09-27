@@ -1,4 +1,4 @@
-package albin.oredev.year2012.util;
+package albin.oredev2012.util;
 
 import java.io.Closeable;
 import java.io.IOException;

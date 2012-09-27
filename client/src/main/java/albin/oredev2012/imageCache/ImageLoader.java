@@ -1,4 +1,4 @@
-package albin.oredev.year2012.imageCache;
+package albin.oredev2012.imageCache;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,7 +10,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import albin.oredev.year2012.util.StreamUtil;
+import albin.oredev2012.util.StreamUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 

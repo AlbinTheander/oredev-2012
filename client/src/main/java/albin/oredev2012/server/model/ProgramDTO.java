@@ -1,4 +1,4 @@
-package albin.oredev.year2012.server.model;
+package albin.oredev2012.server.model;
 
 import java.util.List;
 

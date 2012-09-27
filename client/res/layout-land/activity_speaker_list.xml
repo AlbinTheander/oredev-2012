@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/speaker_list_fragment"
-        android:name="albin.oredev.year2012.SpeakerListFragment_"
+        android:name="albin.oredev2012.SpeakerListFragment_"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.3" />
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/speaker_detail_fragment"
-        android:name="albin.oredev.year2012.SpeakerDetailFragment_"
+        android:name="albin.oredev2012.SpeakerDetailFragment_"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.7" />

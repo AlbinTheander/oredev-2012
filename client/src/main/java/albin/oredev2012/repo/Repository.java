@@ -1,15 +1,15 @@
-package albin.oredev.year2012.repo;
+package albin.oredev2012.repo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.converter.xml.SimpleXmlHttpMessageConverter;
 
-import albin.oredev.year2012.db.DatabaseHelper;
-import albin.oredev.year2012.model.Speaker;
-import albin.oredev.year2012.server.OredevApi;
-import albin.oredev.year2012.server.model.ProgramDTO;
-import albin.oredev.year2012.server.model.SpeakerDTO;
+import albin.oredev2012.db.DatabaseHelper;
+import albin.oredev2012.model.Speaker;
+import albin.oredev2012.server.OredevApi;
+import albin.oredev2012.server.model.ProgramDTO;
+import albin.oredev2012.server.model.SpeakerDTO;
 import android.content.Context;
 
 import com.googlecode.androidannotations.annotations.AfterInject;

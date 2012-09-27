@@ -1,4 +1,4 @@
-package albin.oredev.year2012.imageCache;
+package albin.oredev2012.imageCache;
 
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;

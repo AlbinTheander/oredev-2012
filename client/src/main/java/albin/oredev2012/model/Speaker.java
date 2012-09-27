@@ -1,4 +1,4 @@
-package albin.oredev.year2012.model;
+package albin.oredev2012.model;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;

@@ -1,4 +1,4 @@
-package albin.oredev.year2012;
+package albin.oredev2012;
 
 import android.support.v4.app.FragmentActivity;
 

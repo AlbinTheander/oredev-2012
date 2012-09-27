@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/speaker_detail_fragment"
-        android:name="albin.oredev.year2012.SpeakerDetailFragment_"
+        android:name="albin.oredev2012.SpeakerDetailFragment_"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

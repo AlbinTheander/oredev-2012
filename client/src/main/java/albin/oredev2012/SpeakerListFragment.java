@@ -1,7 +1,7 @@
-package albin.oredev.year2012;
+package albin.oredev2012;
 
-import albin.oredev.year2012.model.Speaker;
-import albin.oredev.year2012.ui.SpeakerAdapter;
+import albin.oredev2012.model.Speaker;
+import albin.oredev2012.ui.SpeakerAdapter;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
