@@ -5,10 +5,10 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import albin.oredev.year2012.Repository;
 import albin.oredev.year2012.imageCache.ImageCache;
 import albin.oredev.year2012.imageCache.ImageCache.OnImageLoadedListener;
 import albin.oredev.year2012.model.Speaker;
+import albin.oredev.year2012.repo.Repository;
 import albin.oredev.year2012.util.Gate;
 import android.content.Context;
 import android.graphics.Bitmap;

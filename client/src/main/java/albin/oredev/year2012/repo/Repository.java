@@ -1,4 +1,4 @@
-package albin.oredev.year2012;
+package albin.oredev.year2012.repo;
 
 import java.util.ArrayList;
 import java.util.List;
