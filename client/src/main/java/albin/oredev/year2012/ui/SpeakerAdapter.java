@@ -8,7 +8,7 @@ import java.util.List;
 import albin.oredev.year2012.Repository;
 import albin.oredev.year2012.imageCache.ImageCache;
 import albin.oredev.year2012.imageCache.ImageCache.OnImageLoadedListener;
-import albin.oredev.year2012.imageCache.ImageLoadingLock;
+import albin.oredev.year2012.util.Gate;
 import albin.oredev.year2012.server.model.Speaker;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -43,7 +43,7 @@ public class SpeakerAdapter extends BaseAdapter implements
 
 	private Section[] sections = new Section[0];
 
-	private ImageLoadingLock imageLoadingLock = new ImageLoadingLock();
+	private Gate imageLoadingGate = new Gate();
 
 	@AfterInject
 	protected void init() {
@@ -61,8 +61,7 @@ public class SpeakerAdapter extends BaseAdapter implements
 	private void preloadImages(List<Speaker> speakers) {
 		Iterator<Speaker> iterator = speakers.iterator();
 		while (iterator.hasNext()) {
-			if (imageLoadingLock.isLocked()) {
-				imageLoadingLock.waitUntilUnlocked(1000);
+			if (!imageLoadingGate.passThrough(1000)) {
 				continue;
 			}
 			Speaker speaker = iterator.next();
@@ -99,13 +98,13 @@ public class SpeakerAdapter extends BaseAdapter implements
 
 	@UiThread
 	protected void loadImages(boolean loadImages) {
-		if (loadImages && imageLoadingLock.isLocked()) {
+		if (loadImages && !imageLoadingGate.isOpen()) {
 			notifyDataSetChanged();
 		}
 		if (loadImages) {
-			imageLoadingLock.unlock();
+			imageLoadingGate.open();
 		} else {
-			imageLoadingLock.lock();
+			imageLoadingGate.close();
 		}
 	}
 
@@ -135,7 +134,7 @@ public class SpeakerAdapter extends BaseAdapter implements
 		}
 		Speaker speaker = speakers.get(position);
 		Bitmap bitmap = imageCache.getImage(speaker.getImageUrl(),
-				!imageLoadingLock.isLocked(), this);
+				imageLoadingGate.isOpen(), this);
 		view.bind(speaker.getName(), bitmap);
 		return view;
 	}
