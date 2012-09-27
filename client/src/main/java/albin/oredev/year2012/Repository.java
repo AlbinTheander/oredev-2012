@@ -75,8 +75,8 @@ public class Repository {
 	}
 
 	public Speaker getSpeaker(String speakerId) {
-		getSpeakers();
-		for(Speaker speaker: speakerList) {
+		List<Speaker> speakers = getSpeakers();
+		for(Speaker speaker: speakers) {
 			if (speakerId.equals(speaker.getId()))
 				return speaker;
 		}

@@ -6,8 +6,9 @@ import android.support.v4.util.LruCache;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EBean;
+import com.googlecode.androidannotations.api.Scope;
 
-@EBean
+@EBean(scope=Scope.Singleton)
 public class ImageCache {
 
 	@Bean

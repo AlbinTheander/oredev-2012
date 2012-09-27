@@ -116,10 +116,14 @@ public class SpeakerAdapter extends BaseAdapter implements
 	public int getCount() {
 		return speakers.size();
 	}
+	
+	public Speaker getSpeaker(int id) {
+		return speakers.get(id);
+	}
 
 	@Override
 	public Object getItem(int id) {
-		return speakers.get(id);
+		return getSpeaker(id);
 	}
 
 	@Override

@@ -1,35 +1,35 @@
 package albin.oredev.year2012;
 
 import albin.oredev.year2012.model.Speaker;
-import albin.oredev.year2012.ui.SpeakerAdapter;
-import android.app.ListActivity;
+import android.support.v4.app.FragmentActivity;
+import android.view.View;
 
-import com.googlecode.androidannotations.annotations.AfterInject;
 import com.googlecode.androidannotations.annotations.AfterViews;
-import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
-import com.googlecode.androidannotations.annotations.ItemClick;
+import com.googlecode.androidannotations.annotations.FragmentById;
+import com.googlecode.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_speaker_list)
-public class SpeakerListActivity extends ListActivity {
+public class SpeakerListActivity extends FragmentActivity {
 
-	@Bean
-	protected SpeakerAdapter adapter;
-
-	@AfterInject
-	protected void init() {
-		setTitle(R.string.speakers_title);
-		setListAdapter(adapter);
-	}
+	@FragmentById
+	protected SpeakerListFragment speakerListFragment;
+	
+	@FragmentById
+	protected SpeakerDetailFragment speakerDetailFragment;
+	
+	@ViewById(R.id.speaker_detail_fragment)
+	protected View speakerDetailView;
 	
 	@AfterViews
-	protected void initViews() {
-		getListView().setOnScrollListener(adapter);
+	protected void init() {
+		setTitle(R.string.speakers_title);
 	}
 
-	@ItemClick(android.R.id.list)
-	protected void openSpeaker(Speaker speaker) {
-		SpeakerDetailActivity_.intent(this).speakerId(speaker.getId()).start();
+	public void openDetails(Speaker speaker) {
+		if (speakerDetailView != null)
+			speakerDetailFragment.setSpeakerId(speaker.getId());
+		else
+			SpeakerDetailActivity_.intent(this).speakerId(speaker.getId()).start();
 	}
-
 }
