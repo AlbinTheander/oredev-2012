@@ -6,12 +6,12 @@ import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 @Root(strict=false, name="program")
-public class SpeakerList {
+public class ProgramDTO {
 	
 	@ElementList
-	private List<Speaker> speakers;
+	private List<SpeakerDTO> speakers;
 
-	public List<Speaker> getSpeakers() {
+	public List<SpeakerDTO> getSpeakers() {
 		return speakers;
 	}
 }

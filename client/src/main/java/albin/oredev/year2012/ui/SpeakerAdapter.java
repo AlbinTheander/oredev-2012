@@ -8,8 +8,8 @@ import java.util.List;
 import albin.oredev.year2012.Repository;
 import albin.oredev.year2012.imageCache.ImageCache;
 import albin.oredev.year2012.imageCache.ImageCache.OnImageLoadedListener;
+import albin.oredev.year2012.model.Speaker;
 import albin.oredev.year2012.util.Gate;
-import albin.oredev.year2012.server.model.Speaker;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
@@ -139,34 +139,40 @@ public class SpeakerAdapter extends BaseAdapter implements
 		return view;
 	}
 
-	//----------------------------------------------------
+	// ----------------------------------------------------
 	// Start of OnImageLoaded implementation
-	//----------------------------------------------------
+	// ----------------------------------------------------
 
 	@Override
 	public void onImageLoaded(String url, Bitmap bitmap) {
 		fireUpdate();
 	}
 
-	//----------------------------------------------------
+	// ----------------------------------------------------
 	// End of OnImageLoaded implementation
-	//----------------------------------------------------
+	// ----------------------------------------------------
 
-
-	//----------------------------------------------------
+	// ----------------------------------------------------
 	// Start of AbsListView.OnScrollListener callbacks
-	//----------------------------------------------------
+	// ----------------------------------------------------
 
-	/* (non-Javadoc)
-	 * @see android.widget.AbsListView.OnScrollListener#onScroll(android.widget.AbsListView, int, int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.widget.AbsListView.OnScrollListener#onScroll(android.widget.
+	 * AbsListView, int, int, int)
 	 */
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
 	}
 
-	/* (non-Javadoc)
-	 * @see android.widget.AbsListView.OnScrollListener#onScrollStateChanged(android.widget.AbsListView, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * android.widget.AbsListView.OnScrollListener#onScrollStateChanged(android
+	 * .widget.AbsListView, int)
 	 */
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -177,14 +183,14 @@ public class SpeakerAdapter extends BaseAdapter implements
 		}
 	}
 
-	//----------------------------------------------------
+	// ----------------------------------------------------
 	// End of AbsListView.OnScrollListener callbacks
-	//----------------------------------------------------
+	// ----------------------------------------------------
 
-	//----------------------------------------------------
+	// ----------------------------------------------------
 	// Start of SectionIndexer implementation
-	//----------------------------------------------------
-	
+	// ----------------------------------------------------
+
 	@Override
 	public int getPositionForSection(int section) {
 		return sections[section].pos;
@@ -221,8 +227,8 @@ public class SpeakerAdapter extends BaseAdapter implements
 		}
 	}
 
-	//----------------------------------------------------
+	// ----------------------------------------------------
 	// End of SectionIndexer implementation
-	//----------------------------------------------------
+	// ----------------------------------------------------
 
 }

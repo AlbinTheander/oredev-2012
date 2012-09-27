@@ -2,7 +2,7 @@ package albin.oredev.year2012.server;
 
 import org.springframework.web.client.RestTemplate;
 
-import albin.oredev.year2012.server.model.SpeakerList;
+import albin.oredev.year2012.server.model.ProgramDTO;
 
 import com.googlecode.androidannotations.annotations.rest.Get;
 import com.googlecode.androidannotations.annotations.rest.Rest;
@@ -11,7 +11,7 @@ import com.googlecode.androidannotations.annotations.rest.Rest;
 public interface OredevApi {
 	
 	@Get("/speakers.xml")
-	SpeakerList getSpeakers();
+	ProgramDTO getSpeakers();
 	
 	RestTemplate getRestTemplate();
 

@@ -1,12 +1,15 @@
 package albin.oredev.year2012;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.converter.xml.SimpleXmlHttpMessageConverter;
 
 import albin.oredev.year2012.db.DatabaseHelper;
+import albin.oredev.year2012.model.Speaker;
 import albin.oredev.year2012.server.OredevApi;
-import albin.oredev.year2012.server.model.Speaker;
+import albin.oredev.year2012.server.model.ProgramDTO;
+import albin.oredev.year2012.server.model.SpeakerDTO;
 import android.content.Context;
 
 import com.googlecode.androidannotations.annotations.AfterInject;
@@ -37,10 +40,20 @@ public class Repository {
 			speakerList = getSpeakerListFromDb();
 		}
 		if (speakerList == null || speakerList.size() == 0) {
-			speakerList = oredevApi.getSpeakers().getSpeakers();
+			loadDataFromServer();
 			storeSpeakerListInDb();
 		}
 		return speakerList;
+	}
+
+	private void loadDataFromServer() {
+		ProgramDTO program = oredevApi.getSpeakers();
+		List<Speaker> speakers = new ArrayList<Speaker>();
+		for(SpeakerDTO speakerDto: program.getSpeakers()) {
+			Speaker speaker = speakerDto.toSpeaker();
+			speakers.add(speaker);
+		}
+		speakerList = speakers;
 	}
 
 

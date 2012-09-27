@@ -1,6 +1,6 @@
 package albin.oredev.year2012;
 
-import albin.oredev.year2012.server.model.Speaker;
+import albin.oredev.year2012.model.Speaker;
 import albin.oredev.year2012.ui.SpeakerAdapter;
 import android.app.ListActivity;
 import android.widget.Toast;

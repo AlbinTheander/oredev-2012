@@ -55,7 +55,6 @@ public class ImageCache {
 
 			if (entry == null) {
 				memCache.put(url, new BitmapEntry());
-				loadImage(url, callback);
 			}
 		}
 		if (entry == null) {
@@ -63,11 +62,11 @@ public class ImageCache {
 			if (bitmap == null) {
 				bitmap = imageLoader.loadImage(url);
 			}
-			if(bitmap != null) {
+			if (bitmap != null) {
 				synchronized (memCache) {
 					entry = new BitmapEntry();
 					entry.bitmap = bitmap;
-					memCache.put(url, entry); 
+					memCache.put(url, entry);
 				}
 				callback.onImageLoaded(url, bitmap);
 			}
@@ -83,13 +82,14 @@ public class ImageCache {
 		Bitmap bitmap = fileCache.get(url);
 		if (bitmap == null) {
 			imageLoader.loadImageAsync(url, new LoaderJob(callback));
-		} else if(bitmap != null) {
+		} else if (bitmap != null) {
 			synchronized (memCache) {
 				BitmapEntry entry = new BitmapEntry();
 				entry.bitmap = bitmap;
-				memCache.put(url, entry); 
+				memCache.put(url, entry);
 			}
-			callback.onImageLoaded(url, bitmap);
+			if (callback != null)
+				callback.onImageLoaded(url, bitmap);
 		}
 	}
 
@@ -115,7 +115,8 @@ public class ImageCache {
 				entry.bitmap = bitmap;
 				memCache.put(url, entry);
 			}
-			listener.onImageLoaded(url, bitmap);
+			if (listener != null)
+				listener.onImageLoaded(url, bitmap);
 		}
 
 	}

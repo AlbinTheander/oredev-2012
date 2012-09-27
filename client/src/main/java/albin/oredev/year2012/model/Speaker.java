@@ -1,31 +1,33 @@
-package albin.oredev.year2012.server.model;
-
-import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
+package albin.oredev.year2012.model;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@Root(strict = false)
 @DatabaseTable
 public class Speaker {
-
-	@Attribute
+	
 	@DatabaseField(id=true)
 	private String id;
-
-	@Attribute
+	
 	@DatabaseField
 	private String name;
-
-	@Attribute(name = "photoFile")
+	
 	@DatabaseField
 	private String imageUrl;
 	
-	@Element
 	@DatabaseField
-	private String biography;
+	private String biograhpy;
+	
+	// For serialization
+	Speaker() {
+	}
+
+	public Speaker(String id, String name, String imageUrl, String biograhpy) {
+		this.id = id;
+		this.name = name;
+		this.imageUrl = imageUrl;
+		this.biograhpy = biograhpy;
+	}
 
 	public String getId() {
 		return id;
@@ -38,13 +40,12 @@ public class Speaker {
 	public String getImageUrl() {
 		return imageUrl;
 	}
-	
-	public String getBiography() {
-		return biography;
-	}
 
-	@Override
-	public String toString() {
-		return name;
+	public String getBiograhpy() {
+		return biograhpy;
 	}
+	
+	
+	
+
 }
