@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="NewApi" severity="warning">
+        <ignore path="src/main/java/albin/oredev2012/SessionListActivity.java" />
+    </issue>
+</lint>

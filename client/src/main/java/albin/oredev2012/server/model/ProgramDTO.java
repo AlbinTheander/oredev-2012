@@ -10,8 +10,16 @@ public class ProgramDTO {
 	
 	@ElementList
 	private List<SpeakerDTO> speakers;
+	
+	@ElementList
+	private List<TrackDTO> tracks;
 
 	public List<SpeakerDTO> getSpeakers() {
 		return speakers;
 	}
+	
+	public List<TrackDTO> getTracks() {
+		return tracks;
+	}
+
 }

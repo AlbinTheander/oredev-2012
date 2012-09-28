@@ -10,8 +10,8 @@ import com.googlecode.androidannotations.annotations.rest.Rest;
 @Rest("http://oredev.org")
 public interface OredevApi {
 	
-	@Get("/speakers.xml")
-	ProgramDTO getSpeakers();
+	@Get("/program.xml")
+	ProgramDTO getProgram();
 	
 	RestTemplate getRestTemplate();
 

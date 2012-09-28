@@ -6,10 +6,12 @@ import java.util.List;
 import org.springframework.http.converter.xml.SimpleXmlHttpMessageConverter;
 
 import albin.oredev2012.db.DatabaseHelper;
+import albin.oredev2012.model.Session;
 import albin.oredev2012.model.Speaker;
 import albin.oredev2012.server.OredevApi;
 import albin.oredev2012.server.model.ProgramDTO;
 import albin.oredev2012.server.model.SpeakerDTO;
+import albin.oredev2012.server.model.TrackDTO;
 import android.content.Context;
 
 import com.googlecode.androidannotations.annotations.AfterInject;
@@ -24,6 +26,8 @@ public class Repository {
 	
 	private List<Speaker> speakerList;
 	
+	private List<Session> sessionList;
+	
 	@RestService
 	protected OredevApi oredevApi;
 	
@@ -36,40 +40,61 @@ public class Repository {
 	}
 	
 	public List<Speaker> getSpeakers() {
-		if (speakerList == null) {
-			speakerList = getSpeakerListFromDb();
-		}
-		if (speakerList == null || speakerList.size() == 0) {
-			loadDataFromServer();
-			storeSpeakerListInDb();
-		}
+		loadData();
 		return speakerList;
 	}
 
+	public List<Session> getSessions() {
+		loadData();
+		return sessionList;
+	}
+
+	private void loadData() {
+		if (speakerList == null) {
+			loadDataFromDb();
+		}
+		if (speakerList == null || speakerList.size() == 0) {
+			loadDataFromServer();
+			storeDataInDb();
+		}
+	}
+
 	private void loadDataFromServer() {
-		ProgramDTO program = oredevApi.getSpeakers();
+		ProgramDTO program = oredevApi.getProgram();
 		List<Speaker> speakers = new ArrayList<Speaker>();
 		for(SpeakerDTO speakerDto: program.getSpeakers()) {
 			Speaker speaker = speakerDto.toSpeaker();
 			speakers.add(speaker);
 		}
+		List<Session> sessions = new ArrayList<Session>();
+		for(TrackDTO trackDto: program.getTracks()) {
+			sessions.addAll(trackDto.toSessionList());
+		}
 		speakerList = speakers;
+		sessionList = sessions;
 	}
 
 
-	private List<Speaker> getSpeakerListFromDb() {
+	private void loadDataFromDb() {
 		DatabaseHelper db = new DatabaseHelper(context);
 		RuntimeExceptionDao<Speaker, String> speakerDao = db.getSpeakerDao();
 		List<Speaker> speakers = speakerDao.queryForAll();
+		RuntimeExceptionDao<Session, String> sessionDao = db.getSessionDao();
+		List<Session> sessions = sessionDao.queryForAll();
 		db.close();
-		return speakers;
+		sessionList = sessions;
+		speakerList = speakers;
 	}
 
-	private void storeSpeakerListInDb() {
+	private void storeDataInDb() {
 		DatabaseHelper db = new DatabaseHelper(context);
 		RuntimeExceptionDao<Speaker, String> speakerDao = db.getSpeakerDao();
 		for(Speaker speaker: speakerList) {
 			speakerDao.create(speaker);
+		}
+		RuntimeExceptionDao<Session, String> sessionDao = db.getSessionDao();
+		for(Session session: sessionList) {
+			sessionDao.create(session);
 		}
 		db.close();
 	}

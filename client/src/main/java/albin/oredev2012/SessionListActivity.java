@@ -6,31 +6,26 @@ import android.support.v4.app.NavUtils;
 
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;
-import com.googlecode.androidannotations.annotations.Extra;
 import com.googlecode.androidannotations.annotations.FragmentById;
 import com.googlecode.androidannotations.annotations.OptionsItem;
 
-@EActivity(R.layout.activity_speaker_detail)
-public class SpeakerDetailActivity extends FragmentActivity {
+@EActivity(R.layout.activity_session_list)
+public class SessionListActivity extends FragmentActivity {
 
-	@Extra
-	protected String speakerId;
-	
 	@FragmentById
-	protected SpeakerDetailFragment speakerDetailFragment;
-	
-	
+	protected SessionListFragment sessionListFragment;
+
 	@AfterViews
-	protected void initViews() {
-		speakerDetailFragment.setSpeakerId(speakerId);
+	protected void init() {
+		setTitle(R.string.sessions_title);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 	}
-	
+
 	@OptionsItem(android.R.id.home)
-	public void goHome() {
+	public void goBack() {
 		finish();
 	}
-	
+
 }

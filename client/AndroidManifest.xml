@@ -14,22 +14,22 @@
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name=".SpeakerListActivity_">
+        <activity android:name=".LaunchActivity_" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SpeakerListActivity_" >
+        </activity>
+        <activity
+            android:name=".SessionListActivity_"
+            android:label="Sessions" >
+        </activity>
         <activity
             android:name=".SpeakerDetailActivity_"
             android:label="@string/speakers_title" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

@@ -2,6 +2,7 @@ package albin.oredev2012.db;
 
 import java.sql.SQLException;
 
+import albin.oredev2012.model.Session;
 import albin.oredev2012.model.Speaker;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,9 +21,10 @@ import com.j256.ormlite.table.TableUtils;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 	private static final String DATABASE_NAME = "oredev.db";
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 
 	private RuntimeExceptionDao<Speaker, String> speakerDao = null;
+	private RuntimeExceptionDao<Session, String> sessionDao = null;
 
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -36,8 +38,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
 		try {
-			Log.i(DatabaseHelper.class.getName(), "onCreate");
 			TableUtils.createTable(connectionSource, Speaker.class);
+			TableUtils.createTable(connectionSource, Session.class);
 		} catch (SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
 			throw new RuntimeException(e);
@@ -53,8 +55,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource,
 			int oldVersion, int newVersion) {
 		try {
-			Log.i(DatabaseHelper.class.getName(), "onUpgrade");
 			TableUtils.dropTable(connectionSource, Speaker.class, true);
+			TableUtils.dropTable(connectionSource, Session.class, true);
 			// after we drop the old databases, we create the new ones
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {
@@ -73,6 +75,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		}
 		return speakerDao;
 	}
+	
+	public RuntimeExceptionDao<Session, String> getSessionDao() {
+		if (sessionDao == null) {
+			sessionDao = getRuntimeExceptionDao(Session.class);
+		}
+		return sessionDao;
+	}
 
 	/**
 	 * Close the database connections and clear any cached DAOs.
@@ -81,5 +90,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void close() {
 		super.close();
 		speakerDao = null;
+		sessionDao = null;
 	}
 }
