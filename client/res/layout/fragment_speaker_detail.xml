@@ -15,24 +15,31 @@
             android:layout_height="wrap_content"
             android:textSize="24sp" />
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_below="@id/name"
-            android:layout_margin="5dp"
-            android:contentDescription="@string/cd_speaker_image"
-            android:scaleType="fitCenter" />
-
-        <TextView
-            android:id="@+id/biography"
-            android:layout_width="wrap_content"
+        <albin.oredev2012.ui.TextAroundImageLayout_
+            android:id="@+id/speaker_info"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/name"
-            android:layout_toRightOf="@id/image"
-            android:gravity="fill_horizontal"
-            android:textSize="18sp"
-            tools:context=".SpeakerDetailActivity" />
+            android:layout_below="@id/name" >
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_below="@id/name"
+                android:layout_margin="5dp"
+                android:contentDescription="@string/cd_speaker_image"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/biography"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/name"
+                android:layout_toRightOf="@id/image"
+                android:gravity="fill_horizontal"
+                android:textSize="18sp"
+                tools:context=".SpeakerDetailActivity" />
+        </albin.oredev2012.ui.TextAroundImageLayout_>
     </RelativeLayout>
 
 </ScrollView>
