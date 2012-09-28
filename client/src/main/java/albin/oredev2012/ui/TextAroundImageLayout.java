@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.googlecode.androidannotations.annotations.AfterViews;
@@ -80,8 +79,8 @@ public class TextAroundImageLayout extends FrameLayout {
 		ViewGroup.MarginLayoutParams vlp = (MarginLayoutParams) imageView
 				.getLayoutParams();
 		int imageHeight = vlp.height + vlp.topMargin + vlp.bottomMargin;
-		float textLineHeight = textView.getLineHeight();
-		int lines = (int) FloatMath.ceil(imageHeight / textLineHeight);
+		int textLineHeight = textView.getLineHeight();
+		int lines = (int) FloatMath.ceil((float) imageHeight / textLineHeight);
 
 		// Create a spannable string that will be indented with the width of the
 		// image for the first lines
@@ -89,13 +88,6 @@ public class TextAroundImageLayout extends FrameLayout {
 		SpannableString ss = new SpannableString(text);
 		ss.setSpan(new FirstLinesIndent(lines, imageWidth), 0, ss.length(), 0);
 		textView.setText(ss);
-
-		// Align the text with the image by removing the rule that the text is
-		// to the right of the image
-		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) textView
-				.getLayoutParams();
-		int[] rules = params.getRules();
-		rules[RelativeLayout.RIGHT_OF] = 0;
 	}
 
 	class FirstLinesIndent implements LeadingMarginSpan.LeadingMarginSpan2 {
