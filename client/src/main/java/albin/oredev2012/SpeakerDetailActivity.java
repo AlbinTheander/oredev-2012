@@ -2,7 +2,6 @@ package albin.oredev2012;
 
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.NavUtils;
 
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;

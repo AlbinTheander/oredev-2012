@@ -1,6 +1,7 @@
 package albin.oredev2012;
 
 import albin.oredev2012.model.Speaker;
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -23,6 +24,7 @@ public class SpeakerListActivity extends FragmentActivity {
 	@ViewById(R.id.speaker_detail_fragment)
 	protected View speakerDetailView;
 	
+	@SuppressLint("NewApi")
 	@AfterViews
 	protected void init() {
 		setTitle(R.string.speakers_title);
