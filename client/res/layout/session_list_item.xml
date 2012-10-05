@@ -7,14 +7,18 @@
     android:gravity="center"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:orientation="vertical" >
-    
-	
+
     <TextView
         android:id="@+id/name"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
         android:gravity="center_vertical"
+        android:maxLines="1"
         android:paddingLeft="6dip"
+        android:paddingRight="6dip"
+        android:singleLine="true"
+        android:text="albinainitneiaroiawnöoasdnföoasidfnöaosdinföaosdinföoasdinfsadöoi"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -24,6 +28,7 @@
         android:layout_below="@id/name"
         android:gravity="center_vertical"
         android:paddingLeft="6dip"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#ff666666" />
 
 </RelativeLayout>

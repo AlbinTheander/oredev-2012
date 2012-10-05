@@ -23,12 +23,16 @@ public class SpeakerListFragment extends ListFragment {
 
 	@AfterInject
 	protected void init() {
-		setListAdapter(adapter);
+		initViews();
 	}
 
 	@AfterViews
 	protected void initViews() {
-		list.setOnScrollListener(adapter);
+		if (list != null && adapter != null) {
+			setListAdapter(adapter);
+			list.setAdapter(adapter);
+			list.setOnScrollListener(adapter);
+		}
 	}
 
 	@Override
