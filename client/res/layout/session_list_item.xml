@@ -18,7 +18,6 @@
         android:paddingLeft="6dip"
         android:paddingRight="6dip"
         android:singleLine="true"
-        android:text="albinainitneiaroiawnöoasdnföoasidfnöaosdinföaosdinföoasdinfsadöoi"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView

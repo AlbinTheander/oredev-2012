@@ -1,27 +1,35 @@
 package albin.oredev2012.model;
 
+import java.util.Collections;
+import java.util.List;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName="Session")
+@DatabaseTable(tableName = "Session")
 public class Session {
 
-	@DatabaseField(id=true)
+	@DatabaseField(id = true)
 	private String id;
-	
+
 	@DatabaseField
 	private String name;
 
 	@DatabaseField
 	private String track;
-	
+
 	@DatabaseField
 	private String description;
-	
+
+	@DatabaseField
+	private String speakerIds;
+
+	private List<Speaker> speakers = Collections.emptyList();
+
 	// For serialization
 	Session() {
 	}
-	
+
 	public Session(String id, String name, String track, String description) {
 		super();
 		this.id = id;
@@ -37,7 +45,7 @@ public class Session {
 	public String getName() {
 		return name;
 	}
-	
+
 	public String getTrack() {
 		return track;
 	}
@@ -45,5 +53,30 @@ public class Session {
 	public String getDescription() {
 		return description;
 	}
-	
+
+	public List<Speaker> getSpeakers() {
+		return speakers;
+	}
+
+	public String getSpeakerIds() {
+		return speakerIds;
+	}
+
+	public void setSpeakers(List<Speaker> speakers) {
+		this.speakers = speakers;
+		StringBuilder sb = new StringBuilder(speakers.size() * 33);
+		boolean first = true;
+		for (Speaker speaker : speakers) {
+			if (speaker != null) {
+				if (first) {
+					first = false;
+				} else {
+					sb.append(',');
+				}
+				sb.append(speaker.getId());
+			}
+		}
+		speakerIds = sb.toString();
+	}
+
 }

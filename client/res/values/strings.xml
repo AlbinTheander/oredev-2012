@@ -4,6 +4,9 @@
     <string name="app_name">Øredev 2012</string>
     <string name="speakers_title">Speakers</string>
     <string name="sessions_title">Sessions</string>
+    
+    <string name="action_refresh">Refresh</string>
+    <string name="loading">Loading data…</string>
 
     <!-- Content description strings for images -->
     <string name="cd_speaker_image">Speaker image</string>

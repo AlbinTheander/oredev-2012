@@ -7,32 +7,31 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
-@Root(strict=false, name="Session")
+@Root(strict = false, name = "Session")
 public class SessionDTO {
-	
+
 	@Attribute
 	String id;
-	
+
 	@Attribute
 	String name;
-	
+
 	@Attribute
 	String startTime;
-	
+
 	@Attribute
 	String length;
-	
-	@Element(required=false)
+
+	@Element(required = false)
 	String description;
-	
+
 	@ElementList
 	List<SpeakerId> speakers;
-	
-	@Root(name="speaker")
+
+	@Root(name = "speaker")
 	static class SpeakerId {
 		@Attribute
 		String id;
 	}
-	
 
 }

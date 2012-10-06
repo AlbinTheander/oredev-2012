@@ -11,6 +11,7 @@
         android:layout_centerVertical="true"
         android:text="@string/sessions_title"
         tools:context=".LaunchActivity" />
+
     <Button
         android:id="@+id/speakers_button"
         android:layout_width="wrap_content"
@@ -20,5 +21,37 @@
         android:layout_centerVertical="true"
         android:text="@string/speakers_title"
         tools:context=".LaunchActivity" />
-    
+
+    <Button
+        android:id="@+id/refresh_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/speakers_button"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/action_refresh"
+        tools:context=".LaunchActivity" />
+
+    <LinearLayout
+        android:id="@+id/loading_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/refresh_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:visibility="invisible"
+        android:orientation="horizontal" >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateOnly="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading" />
+    </LinearLayout>
+
 </RelativeLayout>

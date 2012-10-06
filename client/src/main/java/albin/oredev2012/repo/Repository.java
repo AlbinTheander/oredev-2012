@@ -1,17 +1,18 @@
 package albin.oredev2012.repo;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.http.converter.xml.SimpleXmlHttpMessageConverter;
 
 import albin.oredev2012.db.DatabaseHelper;
+import albin.oredev2012.db.OredevDb;
 import albin.oredev2012.model.Session;
 import albin.oredev2012.model.Speaker;
 import albin.oredev2012.server.OredevApi;
+import albin.oredev2012.server.model.DtoConverter;
 import albin.oredev2012.server.model.ProgramDTO;
-import albin.oredev2012.server.model.SpeakerDTO;
-import albin.oredev2012.server.model.TrackDTO;
+import albin.oredev2012.util.Logg;
 import android.content.Context;
 
 import com.googlecode.androidannotations.annotations.AfterInject;
@@ -20,6 +21,7 @@ import com.googlecode.androidannotations.annotations.RootContext;
 import com.googlecode.androidannotations.annotations.rest.RestService;
 import com.googlecode.androidannotations.api.Scope;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.table.TableUtils;
 
 @EBean(scope=Scope.Singleton)
 public class Repository {
@@ -49,6 +51,20 @@ public class Repository {
 		return sessionList;
 	}
 
+	public Speaker getSpeaker(String speakerId) {
+		List<Speaker> speakers = getSpeakers();
+		for(Speaker speaker: speakers) {
+			if (speakerId.equals(speaker.getId()))
+				return speaker;
+		}
+		return null;
+	}
+
+	public void refreshFromServer() {
+		loadDataFromServer();
+		storeDataInDb();
+	}
+
 	private void loadData() {
 		if (speakerList == null) {
 			loadDataFromDb();
@@ -61,50 +77,35 @@ public class Repository {
 
 	private void loadDataFromServer() {
 		ProgramDTO program = oredevApi.getProgram();
-		List<Speaker> speakers = new ArrayList<Speaker>();
-		for(SpeakerDTO speakerDto: program.getSpeakers()) {
-			Speaker speaker = speakerDto.toSpeaker();
-			speakers.add(speaker);
-		}
-		List<Session> sessions = new ArrayList<Session>();
-		for(TrackDTO trackDto: program.getTracks()) {
-			sessions.addAll(trackDto.toSessionList());
-		}
-		speakerList = speakers;
-		sessionList = sessions;
+		DtoConverter converter = new DtoConverter(program);
+		sessionList = converter.getSessions();
+		speakerList = converter.getSpeakers();
 	}
 
 
 	private void loadDataFromDb() {
-		DatabaseHelper db = new DatabaseHelper(context);
-		RuntimeExceptionDao<Speaker, String> speakerDao = db.getSpeakerDao();
-		List<Speaker> speakers = speakerDao.queryForAll();
-		RuntimeExceptionDao<Session, String> sessionDao = db.getSessionDao();
-		List<Session> sessions = sessionDao.queryForAll();
-		db.close();
-		sessionList = sessions;
-		speakerList = speakers;
+		OredevDb oredevDb = new OredevDb(context);
+		sessionList = oredevDb.getSessions();
+		speakerList = oredevDb.getSpeakers();
 	}
 
 	private void storeDataInDb() {
 		DatabaseHelper db = new DatabaseHelper(context);
-		RuntimeExceptionDao<Speaker, String> speakerDao = db.getSpeakerDao();
-		for(Speaker speaker: speakerList) {
-			speakerDao.create(speaker);
+		try {
+			TableUtils.clearTable(db.getConnectionSource(), Speaker.class);
+			TableUtils.clearTable(db.getConnectionSource(), Session.class);
+			RuntimeExceptionDao<Speaker, String> speakerDao = db.getSpeakerDao();
+			for(Speaker speaker: speakerList) {
+				speakerDao.create(speaker);
+			}
+			RuntimeExceptionDao<Session, String> sessionDao = db.getSessionDao();
+			for(Session session: sessionList) {
+				sessionDao.create(session);
+			}
+		} catch (SQLException e) {
+			Logg.d("Couldn't store data in database", e);
+		} finally {
+			db.close();
 		}
-		RuntimeExceptionDao<Session, String> sessionDao = db.getSessionDao();
-		for(Session session: sessionList) {
-			sessionDao.create(session);
-		}
-		db.close();
-	}
-
-	public Speaker getSpeaker(String speakerId) {
-		List<Speaker> speakers = getSpeakers();
-		for(Speaker speaker: speakers) {
-			if (speakerId.equals(speaker.getId()))
-				return speaker;
-		}
-		return null;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import albin.oredev2012.model.Session;
+import albin.oredev2012.model.Speaker;
 import albin.oredev2012.repo.Repository;
 import android.content.Context;
 import android.view.View;
@@ -79,7 +80,9 @@ public class SessionAdapter extends BaseAdapter  {
 			view = SessionListItemView_.build(context);
 		}
 		Session session = sessions.get(position);
-		view.bind(session.getName(), session.getTrack());
+		Speaker speaker = session.getSpeakers().size() > 0 ? session.getSpeakers().get(0) : null;
+		String speakerName = speaker == null ? "" : speaker.getName();
+		view.bind(session.getName(), speakerName);
 		return view;
 	}
 
