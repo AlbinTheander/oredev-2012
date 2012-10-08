@@ -23,24 +23,25 @@ import com.googlecode.androidannotations.api.Scope;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.table.TableUtils;
 
-@EBean(scope=Scope.Singleton)
+@EBean(scope = Scope.Singleton)
 public class Repository {
-	
+
 	private List<Speaker> speakerList;
-	
+
 	private List<Session> sessionList;
-	
+
 	@RestService
 	protected OredevApi oredevApi;
-	
+
 	@RootContext
 	protected Context context;
-	
+
 	@AfterInject
 	protected void configure() {
-		oredevApi.getRestTemplate().getMessageConverters().add(new SimpleXmlHttpMessageConverter());
+		oredevApi.getRestTemplate().getMessageConverters()
+				.add(new SimpleXmlHttpMessageConverter());
 	}
-	
+
 	public List<Speaker> getSpeakers() {
 		loadData();
 		return speakerList;
@@ -53,9 +54,18 @@ public class Repository {
 
 	public Speaker getSpeaker(String speakerId) {
 		List<Speaker> speakers = getSpeakers();
-		for(Speaker speaker: speakers) {
+		for (Speaker speaker : speakers) {
 			if (speakerId.equals(speaker.getId()))
 				return speaker;
+		}
+		return null;
+	}
+
+	public Session getSession(String sessionId) {
+		List<Session> sessions = getSessions();
+		for (Session session : sessions) {
+			if (sessionId.equals(session.getId()))
+				return session;
 		}
 		return null;
 	}
@@ -82,7 +92,6 @@ public class Repository {
 		speakerList = converter.getSpeakers();
 	}
 
-
 	private void loadDataFromDb() {
 		OredevDb oredevDb = new OredevDb(context);
 		sessionList = oredevDb.getSessions();
@@ -94,12 +103,14 @@ public class Repository {
 		try {
 			TableUtils.clearTable(db.getConnectionSource(), Speaker.class);
 			TableUtils.clearTable(db.getConnectionSource(), Session.class);
-			RuntimeExceptionDao<Speaker, String> speakerDao = db.getSpeakerDao();
-			for(Speaker speaker: speakerList) {
+			RuntimeExceptionDao<Speaker, String> speakerDao = db
+					.getSpeakerDao();
+			for (Speaker speaker : speakerList) {
 				speakerDao.create(speaker);
 			}
-			RuntimeExceptionDao<Session, String> sessionDao = db.getSessionDao();
-			for(Session session: sessionList) {
+			RuntimeExceptionDao<Session, String> sessionDao = db
+					.getSessionDao();
+			for (Session session : sessionList) {
 				sessionDao.create(session);
 			}
 		} catch (SQLException e) {

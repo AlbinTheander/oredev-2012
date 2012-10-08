@@ -1,6 +1,5 @@
 package albin.oredev2012;
 
-import android.annotation.SuppressLint;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 
@@ -20,7 +19,7 @@ public class SpeakerDetailActivity extends FragmentActivity {
 	protected SpeakerDetailFragment speakerDetailFragment;
 	
 	
-	@SuppressLint("NewApi")
+//	@SuppressLint("NewApi")
 	@AfterViews
 	protected void initViews() {
 		speakerDetailFragment.setSpeakerId(speakerId);

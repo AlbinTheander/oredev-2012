@@ -5,7 +5,6 @@ import albin.oredev2012.ui.SessionAdapter;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.googlecode.androidannotations.annotations.AfterInject;
 import com.googlecode.androidannotations.annotations.Bean;
@@ -30,7 +29,7 @@ public class SessionListFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		Session session = adapter.getSession((int) adapter.getItemId(position));
-		Toast.makeText(getActivity(), session.getName(), Toast.LENGTH_SHORT).show();
+		SessionDetailActivity_.intent(getActivity()).sessionId(session.getId()).start();
 	}
 
 }
