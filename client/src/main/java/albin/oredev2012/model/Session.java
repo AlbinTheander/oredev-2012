@@ -14,6 +14,12 @@ public class Session {
 
 	@DatabaseField
 	private String name;
+	
+	@DatabaseField
+	private String date;
+	
+	@DatabaseField
+	private String time;
 
 	@DatabaseField
 	private String track;
@@ -30,10 +36,12 @@ public class Session {
 	Session() {
 	}
 
-	public Session(String id, String name, String track, String description) {
+	public Session(String id, String name, String date, String time, String track, String description) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.date = date;
+		this.time = time;
 		this.track = track;
 		this.description = description;
 	}
@@ -44,6 +52,14 @@ public class Session {
 
 	public String getName() {
 		return name;
+	}
+	
+	public String getDate() {
+		return date;
+	}
+	
+	public String getTime() {
+		return time;
 	}
 
 	public String getTrack() {

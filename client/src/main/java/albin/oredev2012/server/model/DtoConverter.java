@@ -1,6 +1,9 @@
 package albin.oredev2012.server.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -8,8 +11,15 @@ import albin.oredev2012.model.Session;
 import albin.oredev2012.model.Speaker;
 import albin.oredev2012.server.model.SessionDTO.SpeakerId;
 import albin.oredev2012.util.StringUtil;
+import android.util.Pair;
 
 public class DtoConverter {
+	// 2012-11-07T10:00:00
+	private final SimpleDateFormat IN_FORMAT = new SimpleDateFormat(
+			"yyyy-MM-dd'T'hh:mm:ss");
+	private final SimpleDateFormat DATE_ONLY = new SimpleDateFormat(
+			"EEE, dd MMM");
+	private final SimpleDateFormat TIME_ONLY = new SimpleDateFormat("kk:mm");
 
 	private LinkedHashMap<String, Session> sessions;
 	private LinkedHashMap<String, Speaker> speakers;
@@ -61,11 +71,25 @@ public class DtoConverter {
 		for (TrackDTO track : programDTO.tracks) {
 			if (validator.isValid(track)) {
 				for (SessionDTO dto : track.sessions) {
+					Pair<String, String> dateAndTime = getDateAndTime(dto.startTime);
 					sessions.put(dto.id, new Session(dto.id, dto.name,
-							track.name, dto.description));
+							dateAndTime.first, dateAndTime.second, track.name,
+							dto.description));
 				}
 			}
 		}
+	}
+
+	private Pair<String, String> getDateAndTime(String time) {
+		try {
+			Date dateTime = IN_FORMAT.parse(time);
+			String dateOnly = DATE_ONLY.format(dateTime);
+			String timeOnly = TIME_ONLY.format(dateTime);
+			return new Pair<String, String>(dateOnly, timeOnly);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

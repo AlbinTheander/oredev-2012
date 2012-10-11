@@ -1,0 +1,36 @@
+package albin.oredev2012.model;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+public class SessionsByDateCollection {
+	
+	private Map<String, List<Session>> sessionsByDate;
+	
+	public SessionsByDateCollection(List<Session> sessions) {
+		sessionsByDate = new LinkedHashMap<String, List<Session>>();
+		for(Session session: sessions) {
+			putSession(session);
+		}
+	}
+	
+	private void putSession(Session session) {
+		List<Session> sessions = sessionsByDate.get(session.getDate());
+		if (sessions == null) {
+			sessions = new ArrayList<Session>();
+			sessionsByDate.put(session.getDate(), sessions);
+		}
+		sessions.add(session);
+	}
+
+	public List<String> getDates() {
+		return new ArrayList<String>(sessionsByDate.keySet());
+	}
+	
+	public List<Session> getSessions(String date) {
+		return sessionsByDate.get(date);
+	}
+
+}
