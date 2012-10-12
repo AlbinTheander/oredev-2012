@@ -69,7 +69,7 @@ public class ImageLoader {
 			this.url = url;
 			this.listener = listener;
 		}
-
+		
 		@Override
 		public Bitmap call() throws Exception {
 			try {

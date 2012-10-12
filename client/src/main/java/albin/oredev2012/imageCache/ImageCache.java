@@ -8,7 +8,7 @@ import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EBean;
 import com.googlecode.androidannotations.api.Scope;
 
-@EBean(scope=Scope.Singleton)
+@EBean(scope = Scope.Singleton)
 public class ImageCache {
 
 	@Bean
@@ -21,7 +21,7 @@ public class ImageCache {
 		void onImageLoaded(String url, Bitmap bitmap);
 	}
 
-	private LruCache<String, BitmapEntry> memCache;
+	private final LruCache<String, BitmapEntry> memCache;
 
 	public ImageCache() {
 		memCache = new LruCache<String, BitmapEntry>(4 * 1024 * 1024) {
