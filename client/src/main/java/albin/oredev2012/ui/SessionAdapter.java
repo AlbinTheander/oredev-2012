@@ -1,60 +1,29 @@
 package albin.oredev2012.ui;
 
-import java.util.Collections;
 import java.util.List;
 
 import albin.oredev2012.model.Session;
-import albin.oredev2012.repo.Repository;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.googlecode.androidannotations.annotations.AfterInject;
-import com.googlecode.androidannotations.annotations.Background;
-import com.googlecode.androidannotations.annotations.Bean;
-import com.googlecode.androidannotations.annotations.EBean;
-import com.googlecode.androidannotations.annotations.RootContext;
-import com.googlecode.androidannotations.annotations.UiThread;
+public class SessionAdapter extends BaseAdapter {
 
-@EBean
-public class SessionAdapter extends BaseAdapter  {
+	private Context context;
 
-	@Bean
-	protected Repository repo;
+	private List<Session> sessions;
 	
-	@RootContext
-	protected Context context;
-
-	private List<Session> sessions = Collections.emptyList();
-
-	@AfterInject
-	protected void init() {
-		loadSesions();
-	}
-
-	@Background
-	protected void loadSesions() {
-		List<Session> newSessions = repo.getSessions();
-		updateSessions(newSessions);
-	}
-
-	@UiThread
-	protected void updateSessions(List<Session> newSessions) {
-			sessions = newSessions;
-			notifyDataSetChanged();
-	}
-
-	@UiThread
-	protected void fireUpdate() {
-		notifyDataSetChanged();
+	public SessionAdapter(Context context, List<Session> sessions) {
+		this.context = context;
+		this.sessions = sessions;
 	}
 
 	@Override
 	public int getCount() {
 		return sessions.size();
 	}
-	
+
 	public Session getSession(int id) {
 		return sessions.get(id);
 	}
