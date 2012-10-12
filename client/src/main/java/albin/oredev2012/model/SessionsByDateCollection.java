@@ -1,6 +1,8 @@
 package albin.oredev2012.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +17,9 @@ public class SessionsByDateCollection {
 	public SessionsByDateCollection(List<Session> sessions) {
 		for(Session session: sessions) {
 			putSession(session);
+		}
+		for(String date: sessionsByDate.keySet()) {
+			Collections.sort(sessionsByDate.get(date), new SessionByDateComparator());
 		}
 	}
 	
@@ -33,6 +38,15 @@ public class SessionsByDateCollection {
 	
 	public List<Session> getSessions(String date) {
 		return sessionsByDate.get(date);
+	}
+
+	public class SessionByDateComparator implements Comparator<Session> {
+
+		@Override
+		public int compare(Session lhs, Session rhs) {
+			return lhs.getTime().compareTo(rhs.getTime());
+		}
+	
 	}
 
 }

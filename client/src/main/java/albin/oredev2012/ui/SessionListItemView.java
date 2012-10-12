@@ -19,6 +19,9 @@ public class SessionListItemView extends LinearLayout {
 	protected TextView time;
 	
 	@ViewById
+	protected TextView track;
+	
+	@ViewById
 	protected TextView name;
 
 	@ViewById
@@ -30,6 +33,7 @@ public class SessionListItemView extends LinearLayout {
 
 	public void bind(Session session) {
 		this.time.setText(session.getTime());
+		this.track.setText(session.getTrack());
 		this.name.setText(session.getName());
 		CharSequence speakerNames = getSpeakerNames(session);
 		

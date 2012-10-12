@@ -9,7 +9,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.TextView;
 
 import com.googlecode.androidannotations.annotations.AfterInject;
 import com.googlecode.androidannotations.annotations.Background;
@@ -19,11 +18,11 @@ import com.googlecode.androidannotations.annotations.RootContext;
 import com.googlecode.androidannotations.annotations.UiThread;
 
 @EBean
-public class SessionAdapter extends BaseExpandableListAdapter  {
+public class SessionAdapter extends BaseExpandableListAdapter {
 
 	@Bean
 	protected Repository repo;
-	
+
 	@RootContext
 	protected Context context;
 
@@ -37,14 +36,15 @@ public class SessionAdapter extends BaseExpandableListAdapter  {
 	@Background
 	protected void loadSessions() {
 		List<Session> newSessions = repo.getSessions();
-		SessionsByDateCollection sessions = new SessionsByDateCollection(newSessions);
+		SessionsByDateCollection sessions = new SessionsByDateCollection(
+				newSessions);
 		updateSessions(sessions);
 	}
 
 	@UiThread
 	protected void updateSessions(SessionsByDateCollection newSessions) {
-			sessions = newSessions;
-			notifyDataSetChanged();
+		sessions = newSessions;
+		notifyDataSetChanged();
 	}
 
 	@UiThread
@@ -52,7 +52,6 @@ public class SessionAdapter extends BaseExpandableListAdapter  {
 		notifyDataSetChanged();
 	}
 
-	
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
 		String date = sessions.getDates().get(groupPosition);
@@ -103,13 +102,13 @@ public class SessionAdapter extends BaseExpandableListAdapter  {
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
-		TextView view;
-		if (convertView != null)
-			view = (TextView) convertView;
-		else
-			view = new TextView(context);
-		String date = (String) getGroup(groupPosition);
-		view.setText(date);
+		SessionListHeaderItemView view;
+		if (convertView instanceof SessionListItemView) {
+			view = (SessionListHeaderItemView) convertView;
+		} else {
+			view = SessionListHeaderItemView_.build(context);
+		}
+		view.bind(sessions.getDates().get(groupPosition));
 		return view;
 	}
 
