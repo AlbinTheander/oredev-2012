@@ -7,10 +7,12 @@ import java.util.Map;
 
 public class SessionsByDateCollection {
 	
-	private Map<String, List<Session>> sessionsByDate;
+	private Map<String, List<Session>> sessionsByDate = new LinkedHashMap<String, List<Session>>();
+	
+	public SessionsByDateCollection() {
+	}
 	
 	public SessionsByDateCollection(List<Session> sessions) {
-		sessionsByDate = new LinkedHashMap<String, List<Session>>();
 		for(Session session: sessions) {
 			putSession(session);
 		}
