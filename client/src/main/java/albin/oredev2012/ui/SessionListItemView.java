@@ -16,7 +16,7 @@ import com.googlecode.androidannotations.annotations.ViewById;
 public class SessionListItemView extends LinearLayout {
 
 	@ViewById
-	protected TextView time;
+	protected TextView track;
 	
 	@ViewById
 	protected TextView name;
@@ -29,7 +29,7 @@ public class SessionListItemView extends LinearLayout {
 	}
 
 	public void bind(Session session) {
-		this.time.setText(session.getTime());
+		this.track.setText(session.getTrack());
 		this.name.setText(session.getName());
 		CharSequence speakerNames = getSpeakerNames(session);
 		
