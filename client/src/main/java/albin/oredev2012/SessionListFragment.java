@@ -15,10 +15,15 @@ import android.widget.ExpandableListView.OnChildClickListener;
 public class SessionListFragment extends Fragment {
 
 	protected SessionAdapter adapter;
-	private final List<Session> sessions;
+	private List<Session> sessions;
+	
+	public SessionListFragment() {
+		setRetainInstance(true);
+	}
 
 	public SessionListFragment(String date, List<Session> sessions) {
 		this.sessions = sessions;
+		setRetainInstance(true);
 	}
 	
 	@Override
