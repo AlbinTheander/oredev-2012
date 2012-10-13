@@ -16,6 +16,7 @@ import albin.oredev2012.util.Logg;
 import android.content.Context;
 
 import com.googlecode.androidannotations.annotations.AfterInject;
+import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EBean;
 import com.googlecode.androidannotations.annotations.RootContext;
 import com.googlecode.androidannotations.annotations.rest.RestService;
@@ -69,13 +70,18 @@ public class Repository {
 		}
 		return null;
 	}
+	
+	@Background
+	public void preloadData() {
+		loadData();
+	}
 
 	public void refreshFromServer() {
 		loadDataFromServer();
 		storeDataInDb();
 	}
 
-	private void loadData() {
+	private synchronized void loadData() {
 		if (speakerList == null) {
 			loadDataFromDb();
 		}
