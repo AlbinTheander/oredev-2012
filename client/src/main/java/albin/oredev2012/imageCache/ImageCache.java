@@ -94,7 +94,7 @@ public class ImageCache {
 		}
 	}
 
-	private class BitmapEntry {
+	private static class BitmapEntry {
 		Bitmap bitmap;
 	}
 

@@ -5,6 +5,8 @@ import java.util.List;
 import albin.oredev2012.model.Session;
 import albin.oredev2012.model.SessionsByDateCollection;
 import albin.oredev2012.repo.Repository;
+import android.annotation.SuppressLint;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -33,15 +35,16 @@ public class SessionListActivity extends FragmentActivity {
 	private SessionsByDateCollection sessions;
 
 	
+	@SuppressLint("NewApi")
 	@AfterInject
 	@AfterViews
 	protected void initViews() {
 		if (sessionListPager == null || repo == null)
 			return;
 		getSessions();
-//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-//			getActionBar().setDisplayHomeAsUpEnabled(true);
-//		}
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 	}
 	
 
@@ -86,7 +89,7 @@ public class SessionListActivity extends FragmentActivity {
 		finish();
 	}
 	
-	private static class SessionListPagerAdapter extends FragmentPagerAdapter {
+	protected static class SessionListPagerAdapter extends FragmentPagerAdapter {
 
 		private final SessionsByDateCollection sessions;
 

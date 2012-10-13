@@ -90,7 +90,7 @@ public class TextAroundImageLayout extends FrameLayout {
 		textView.setText(ss);
 	}
 
-	class FirstLinesIndent implements LeadingMarginSpan.LeadingMarginSpan2 {
+	static class FirstLinesIndent implements LeadingMarginSpan.LeadingMarginSpan2 {
 		private int margin;
 		private int lines;
 

@@ -220,7 +220,7 @@ public class SpeakerAdapter extends BaseAdapter implements
 		return sections;
 	}
 
-	protected class Section {
+	protected static class Section {
 		String name;
 		int pos;
 

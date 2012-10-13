@@ -40,7 +40,7 @@ public class SessionsByDateCollection {
 		return sessionsByDate.get(date);
 	}
 
-	public class SessionByDateComparator implements Comparator<Session> {
+	public static class SessionByDateComparator implements Comparator<Session> {
 
 		@Override
 		public int compare(Session lhs, Session rhs) {
