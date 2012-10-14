@@ -3,6 +3,11 @@ package albin.oredev2012.model;
 import java.util.Collections;
 import java.util.List;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
+
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -15,12 +20,9 @@ public class Session {
 	@DatabaseField
 	private String name;
 	
-	@DatabaseField
-	private String date;
+	@DatabaseField(dataType=DataType.DATE_TIME)
+	private DateTime startTime;
 	
-	@DatabaseField
-	private String time;
-
 	@DatabaseField
 	private String track;
 
@@ -36,12 +38,11 @@ public class Session {
 	Session() {
 	}
 
-	public Session(String id, String name, String date, String time, String track, String description) {
+	public Session(String id, String name, DateTime startTime, String track, String description) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.date = date;
-		this.time = time;
+		this.startTime = startTime;
 		this.track = track;
 		this.description = description;
 	}
@@ -54,12 +55,12 @@ public class Session {
 		return name;
 	}
 	
-	public String getDate() {
-		return date;
+	public LocalDate getDate() {
+		return startTime.toLocalDate();
 	}
 	
-	public String getTime() {
-		return time;
+	public LocalTime getTime() {
+		return startTime.toLocalTime();
 	}
 
 	public String getTrack() {

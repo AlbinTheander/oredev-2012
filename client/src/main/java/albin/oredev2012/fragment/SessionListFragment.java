@@ -27,7 +27,7 @@ public class SessionListFragment extends Fragment {
 		setRetainInstance(true);
 	}
 
-	public SessionListFragment(String date, List<Session> sessions) {
+	public SessionListFragment(List<Session> sessions) {
 		this.sessions = sessions;
 		setRetainInstance(true);
 	}

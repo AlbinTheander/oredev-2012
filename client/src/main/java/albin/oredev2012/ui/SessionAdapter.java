@@ -3,6 +3,8 @@ package albin.oredev2012.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.LocalTime;
+
 import albin.oredev2012.model.Session;
 import android.content.Context;
 import android.view.View;
@@ -14,18 +16,15 @@ public class SessionAdapter extends BaseExpandableListAdapter {
 	private Context context;
 
 	private List<List<Session>> sessions;
-	private List<String> times;
 	
 	public SessionAdapter(Context context, List<Session> sessions) {
 		this.context = context;
-		String lastTime = null;
+		LocalTime lastTime = null;
 		List<Session> currentList = null;
 		this.sessions = new ArrayList<List<Session>>();
-		this.times = new ArrayList<String>();
 		for(Session s: sessions) {
 			if (!s.getTime().equals(lastTime)) {
 				lastTime = s.getTime();
-				times.add(lastTime);
 				currentList = new ArrayList<Session>();
 				this.sessions.add(currentList);
 			}
@@ -93,7 +92,7 @@ public class SessionAdapter extends BaseExpandableListAdapter {
 		} else {
 			view = SessionListTimeItemView_.build(context);
 		}
-		view.bind(times.get(groupPosition));
+		view.bind(sessions.get(groupPosition).get(0).getTime());
 		return view;
 	}
 

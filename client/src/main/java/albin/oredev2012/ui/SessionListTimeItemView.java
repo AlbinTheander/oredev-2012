@@ -1,5 +1,7 @@
 package albin.oredev2012.ui;
 
+import org.joda.time.LocalTime;
+
 import albin.oredev2012.R;
 import android.content.Context;
 import android.widget.LinearLayout;
@@ -18,8 +20,8 @@ public class SessionListTimeItemView extends LinearLayout {
 		super(context);
 	}
 
-	public void bind(String time) {
-		this.time.setText(time);
+	public void bind(LocalTime time) {
+		this.time.setText(time.toString("HH:mm"));
 	}
 
 }

@@ -7,9 +7,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.joda.time.LocalDate;
+
 public class SessionsByDateCollection {
 	
-	private Map<String, List<Session>> sessionsByDate = new LinkedHashMap<String, List<Session>>();
+	private Map<LocalDate, List<Session>> sessionsByDate = new LinkedHashMap<LocalDate, List<Session>>();
 	
 	public SessionsByDateCollection() {
 	}
@@ -18,7 +20,7 @@ public class SessionsByDateCollection {
 		for(Session session: sessions) {
 			putSession(session);
 		}
-		for(String date: sessionsByDate.keySet()) {
+		for(LocalDate date: sessionsByDate.keySet()) {
 			Collections.sort(sessionsByDate.get(date), new SessionByDateComparator());
 		}
 	}
@@ -32,11 +34,11 @@ public class SessionsByDateCollection {
 		sessions.add(session);
 	}
 
-	public List<String> getDates() {
-		return new ArrayList<String>(sessionsByDate.keySet());
+	public List<LocalDate> getDates() {
+		return new ArrayList<LocalDate>(sessionsByDate.keySet());
 	}
 	
-	public List<Session> getSessions(String date) {
+	public List<Session> getSessions(LocalDate date) {
 		return sessionsByDate.get(date);
 	}
 

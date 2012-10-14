@@ -2,11 +2,15 @@ package albin.oredev2012.fragment;
 
 import java.util.List;
 
+import org.joda.time.LocalDate;
+import org.springframework.util.StringUtils;
+
 import albin.oredev2012.R;
 import albin.oredev2012.model.Session;
 import albin.oredev2012.model.SessionsByDateCollection;
 import albin.oredev2012.repo.Repository;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -50,7 +54,7 @@ public class SessionListPagerFragment extends Fragment {
 	
 	@UiThread
 	protected void initPager() {
-		getActivity().setTitle(sessions.getDates().get(0));
+		setActivityTitle(getActivity(), sessions.getDates().get(0));
 		FragmentManager fm = getActivity().getSupportFragmentManager();
 		SessionListPagerAdapter adapter = new SessionListPagerAdapter(fm, sessions);
 		sessionListPager.setAdapter(adapter);
@@ -58,7 +62,8 @@ public class SessionListPagerFragment extends Fragment {
 			
 			@Override
 			public void onPageSelected(int position) {
-				getActivity().setTitle(sessions.getDates().get(position));
+				LocalDate date = sessions.getDates().get(position);
+				setActivityTitle(getActivity(), date);
 			}
 			
 			@Override
@@ -75,6 +80,11 @@ public class SessionListPagerFragment extends Fragment {
 			}
 		});
 	}
+
+	private static void setActivityTitle(Activity activity, LocalDate date) {
+		String dayName = StringUtils.capitalize(date.dayOfWeek().getAsText());
+		activity.setTitle(dayName);
+	}
 	
 	private static class SessionListPagerAdapter extends FragmentPagerAdapter {
 
@@ -87,8 +97,8 @@ public class SessionListPagerFragment extends Fragment {
 
 		@Override
 		public Fragment getItem(int position) {
-			String date = sessions.getDates().get(position);
-			SessionListFragment fragment = new SessionListFragment(date, sessions.getSessions(date));
+			LocalDate date = sessions.getDates().get(position);
+			SessionListFragment fragment = new SessionListFragment(sessions.getSessions(date));
 			return fragment;
 		}
 
