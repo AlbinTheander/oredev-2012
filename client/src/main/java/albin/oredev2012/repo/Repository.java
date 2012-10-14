@@ -2,6 +2,7 @@ package albin.oredev2012.repo;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import org.springframework.http.converter.xml.SimpleXmlHttpMessageConverter;
 
@@ -76,7 +77,7 @@ public class Repository {
 		loadData();
 	}
 
-	public void refreshFromServer() {
+	public synchronized void refreshFromServer() {
 		loadDataFromServer();
 		storeDataInDb();
 	}
@@ -109,16 +110,30 @@ public class Repository {
 		try {
 			TableUtils.clearTable(db.getConnectionSource(), Speaker.class);
 			TableUtils.clearTable(db.getConnectionSource(), Session.class);
-			RuntimeExceptionDao<Speaker, String> speakerDao = db
+			final RuntimeExceptionDao<Speaker, String> speakerDao = db
 					.getSpeakerDao();
-			for (Speaker speaker : speakerList) {
-				speakerDao.create(speaker);
-			}
-			RuntimeExceptionDao<Session, String> sessionDao = db
+			speakerDao.callBatchTasks(new Callable<Void>() {
+
+				@Override
+				public Void call() throws Exception {
+					for (Speaker speaker : speakerList) {
+						speakerDao.create(speaker);
+					}
+					return null;
+				}
+			});
+			final RuntimeExceptionDao<Session, String> sessionDao = db
 					.getSessionDao();
-			for (Session session : sessionList) {
-				sessionDao.create(session);
-			}
+			sessionDao.callBatchTasks(new Callable<Void>() {
+
+				@Override
+				public Void call() throws Exception {
+					for (Session session : sessionList) {
+						sessionDao.create(session);
+					}
+					return null;
+				}
+			});
 		} catch (SQLException e) {
 			Logg.d("Couldn't store data in database", e);
 		} finally {
