@@ -1,8 +1,12 @@
 package albin.oredev2012;
 
+import albin.oredev2012.fragment.SpeakerDetailFragment;
+import albin.oredev2012.fragment.SpeakerListFragment;
+import albin.oredev2012.fragment.SpeakerListFragment.SpeakerOpener;
 import albin.oredev2012.model.Speaker;
 import android.annotation.SuppressLint;
 import android.os.Build;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
@@ -13,10 +17,8 @@ import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_speaker_list)
-public class SpeakerListActivity extends FragmentActivity {
-
-	@FragmentById
-	protected SpeakerListFragment speakerListFragment;
+public class SpeakerListActivity extends FragmentActivity implements
+		SpeakerOpener {
 
 	@FragmentById
 	protected SpeakerDetailFragment speakerDetailFragment;
@@ -37,8 +39,17 @@ public class SpeakerListActivity extends FragmentActivity {
 	public void goHome() {
 		finish();
 	}
+	
+	@Override
+	public void onAttachFragment(Fragment fragment) {
+		if (fragment instanceof SpeakerListFragment) {
+			SpeakerListFragment frag = (SpeakerListFragment) fragment;
+			frag.setSpeakerOpener(this);
+		}
+		super.onAttachFragment(fragment);
+	}
 
-	public void openDetails(Speaker speaker) {
+	public void openSpeaker(Speaker speaker) {
 		if (speakerDetailView != null)
 			speakerDetailFragment.setSpeakerId(speaker.getId());
 		else

@@ -5,8 +5,8 @@
     android:layout_height="match_parent" >
 
     <fragment
-        android:name="albin.oredev2012.SpeakerListFragment_"
         android:id="@+id/speaker_list_fragment"
+        android:name="albin.oredev2012.fragment.SpeakerListFragment_"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

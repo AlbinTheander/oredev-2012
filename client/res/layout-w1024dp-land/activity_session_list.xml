@@ -5,8 +5,8 @@
     android:orientation="horizontal" >
 
     <fragment
-        android:id="@+id/speaker_list_fragment"
-        android:name="albin.oredev2012.fragment.SpeakerListFragment_"
+        android:id="@+id/session_list_pager_fragment"
+        android:name="albin.oredev2012.fragment.SessionListPagerFragment_"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.3" />
@@ -17,8 +17,8 @@
         android:background="#FF000000" />
 
     <fragment
-        android:id="@+id/speaker_detail_fragment"
-        android:name="albin.oredev2012.fragment.SpeakerDetailFragment_"
+        android:id="@+id/session_detail_fragment"
+        android:name="albin.oredev2012.fragment.SessionDetailFragment_"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.7" />

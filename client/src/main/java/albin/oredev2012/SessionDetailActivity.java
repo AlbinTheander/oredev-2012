@@ -1,5 +1,6 @@
 package albin.oredev2012;
 
+import albin.oredev2012.fragment.SessionDetailFragment;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;

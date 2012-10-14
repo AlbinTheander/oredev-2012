@@ -1,5 +1,6 @@
-package albin.oredev2012;
+package albin.oredev2012.fragment;
 
+import albin.oredev2012.R;
 import albin.oredev2012.model.Speaker;
 import albin.oredev2012.ui.SpeakerAdapter;
 import android.support.v4.app.ListFragment;
@@ -15,11 +16,21 @@ import com.googlecode.androidannotations.annotations.ViewById;
 @EFragment(R.layout.fragment_speaker_list)
 public class SpeakerListFragment extends ListFragment {
 
+	public interface SpeakerOpener {
+		void openSpeaker(Speaker speaker);
+	}
+
 	@Bean
 	protected SpeakerAdapter adapter;
 
 	@ViewById(android.R.id.list)
 	protected ListView list;
+
+	private SpeakerOpener opener;
+
+	public void setSpeakerOpener(SpeakerOpener opener) {
+		this.opener = opener;
+	}
 
 	@AfterInject
 	protected void init() {
@@ -37,8 +48,11 @@ public class SpeakerListFragment extends ListFragment {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		Speaker speaker = adapter.getSpeaker((int) adapter.getItemId(position));
-		((SpeakerListActivity) getActivity()).openDetails(speaker);
+		if (opener != null) {
+			Speaker speaker = adapter.getSpeaker((int) adapter
+					.getItemId(position));
+			opener.openSpeaker(speaker);
+		}
 	}
 
 }

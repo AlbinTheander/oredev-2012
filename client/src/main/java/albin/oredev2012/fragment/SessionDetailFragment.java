@@ -1,5 +1,6 @@
-package albin.oredev2012;
+package albin.oredev2012.fragment;
 
+import albin.oredev2012.R;
 import albin.oredev2012.imageCache.ImageCache;
 import albin.oredev2012.model.Session;
 import albin.oredev2012.repo.Repository;
@@ -33,18 +34,13 @@ public class SessionDetailFragment extends Fragment {
 
 	private Session session;
 
+	@AfterViews
 	@AfterInject
 	protected void afterInject() {
 		if (isInitalized())
 			initInBackground();
 	}
 
-	@AfterViews
-	protected void afterViews() {
-		if (isInitalized())
-			initInBackground();
-	}
-	
 	public void setSessionId(String sessionId) {
 		this.sessionId = sessionId;
 		if (isInitalized())

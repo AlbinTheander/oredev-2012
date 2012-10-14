@@ -1,5 +1,6 @@
-package albin.oredev2012;
+package albin.oredev2012.fragment;
 
+import albin.oredev2012.R;
 import albin.oredev2012.imageCache.ImageCache;
 import albin.oredev2012.imageCache.ImageCache.OnImageLoadedListener;
 import albin.oredev2012.model.Speaker;

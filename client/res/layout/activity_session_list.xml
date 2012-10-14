@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/session_list_pager"
+    <fragment
+        android:name="albin.oredev2012.fragment.SessionListPagerFragment_"
+        android:id="@+id/session_list_pager_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
