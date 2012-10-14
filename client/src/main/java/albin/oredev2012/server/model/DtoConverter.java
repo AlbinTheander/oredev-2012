@@ -1,6 +1,5 @@
 package albin.oredev2012.server.model;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,12 +14,10 @@ import albin.oredev2012.server.model.SessionDTO.SpeakerId;
 import albin.oredev2012.util.StringUtil;
 
 public class DtoConverter {
+
 	// 2012-11-07T10:00:00
 	private final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat
 			.forPattern("yyyy-MM-dd'T'HH:mm:ss");
-	private final SimpleDateFormat DATE_ONLY = new SimpleDateFormat(
-			"EEE, dd MMM");
-	private final SimpleDateFormat TIME_ONLY = new SimpleDateFormat("kk:mm");
 
 	private LinkedHashMap<String, Session> sessions;
 	private LinkedHashMap<String, Speaker> speakers;

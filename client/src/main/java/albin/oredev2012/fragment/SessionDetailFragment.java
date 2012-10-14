@@ -2,9 +2,15 @@ package albin.oredev2012.fragment;
 
 import albin.oredev2012.R;
 import albin.oredev2012.imageCache.ImageCache;
+import albin.oredev2012.imageCache.ImageCache.OnImageLoadedListener;
 import albin.oredev2012.model.Session;
+import albin.oredev2012.model.Speaker;
 import albin.oredev2012.repo.Repository;
+import albin.oredev2012.ui.SpeakerListItemView;
+import albin.oredev2012.ui.SpeakerListItemView_;
+import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.googlecode.androidannotations.annotations.AfterInject;
@@ -23,10 +29,19 @@ public class SessionDetailFragment extends Fragment {
 	
 	@ViewById(R.id.description)
 	protected TextView descriptionView;
+	
+	@ViewById(R.id.start_time)
+	protected TextView startTimeView;
+	
+	@ViewById(R.id.track)
+	protected TextView trackView;
+	
+	@ViewById(R.id.speaker_info)
+	protected LinearLayout speakersView;
 
 	@Bean
 	protected Repository repo;
-
+	
 	@Bean
 	protected ImageCache imageCache;
 
@@ -62,7 +77,29 @@ public class SessionDetailFragment extends Fragment {
 	@UiThread
 	protected void initViews() {
 		nameView.setText(session.getName());
+		startTimeView.setText(session.getTime().toString("HH:mm"));
+		trackView.setText(session.getTrack());
 		descriptionView.setText(session.getDescription());
+		addSpeakers();
+	}
+
+	private void addSpeakers() {
+		speakersView.removeAllViews();
+		for(Speaker speaker: session.getSpeakers()) {
+			if (speaker == null)
+				continue;
+			String name = speaker.getName();
+			Bitmap speakerImage = imageCache.getImage(speaker.getImageUrl(), true, new OnImageLoadedListener() {
+				
+				@Override
+				public void onImageLoaded(String url, Bitmap bitmap) {
+					initViews();
+				}
+			});
+			SpeakerListItemView speakerItem = SpeakerListItemView_.build(getActivity());
+			speakerItem.bind(name, speakerImage);
+			speakersView.addView(speakerItem);
+		}
 	}
 
 }
