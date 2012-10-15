@@ -1,5 +1,8 @@
 package albin.oredev2012.imageCache;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
 
@@ -8,7 +11,7 @@ import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EBean;
 import com.googlecode.androidannotations.api.Scope;
 
-@EBean(scope=Scope.Singleton)
+@EBean(scope = Scope.Singleton)
 public class ImageCache {
 
 	@Bean
@@ -41,7 +44,9 @@ public class ImageCache {
 			entry = memCache.get(url);
 
 			if (entry == null && useNonMemoryCaches) {
-				memCache.put(url, new BitmapEntry());
+				entry = new BitmapEntry();
+				entry.listeners.add(callback);
+				memCache.put(url, entry);
 				loadInBackground(url, callback);
 				return null;
 			}
@@ -55,21 +60,23 @@ public class ImageCache {
 			entry = memCache.get(url);
 
 			if (entry == null) {
-				memCache.put(url, new BitmapEntry());
+				entry = new BitmapEntry();
+				entry.listeners.add(callback);
+				memCache.put(url, entry);
+			} else {
+				return;
 			}
 		}
-		if (entry == null) {
-			Bitmap bitmap = fileCache.get(url);
-			if (bitmap == null) {
-				bitmap = imageLoader.loadImage(url);
+		Bitmap bitmap = fileCache.get(url);
+		if (bitmap == null) {
+			bitmap = imageLoader.loadImage(url);
+		}
+		if (bitmap != null) {
+			synchronized (memCache) {
+				entry.bitmap = bitmap;
 			}
-			if (bitmap != null) {
-				synchronized (memCache) {
-					entry = new BitmapEntry();
-					entry.bitmap = bitmap;
-					memCache.put(url, entry);
-				}
-				callback.onImageLoaded(url, bitmap);
+			for (OnImageLoadedListener listener : entry.listeners) {
+				listener.onImageLoaded(url, bitmap);
 			}
 		}
 	}
@@ -82,12 +89,12 @@ public class ImageCache {
 	private void loadImage(String url, OnImageLoadedListener callback) {
 		Bitmap bitmap = fileCache.get(url);
 		if (bitmap == null) {
-			imageLoader.loadImageAsync(url, new LoaderJob(callback));
+			LoaderJob loaderJob = new LoaderJob();
+			imageLoader.loadImageAsync(url, loaderJob);
 		} else if (bitmap != null) {
 			synchronized (memCache) {
-				BitmapEntry entry = new BitmapEntry();
+				BitmapEntry entry = memCache.get(url);
 				entry.bitmap = bitmap;
-				memCache.put(url, entry);
 			}
 			if (callback != null)
 				callback.onImageLoaded(url, bitmap);
@@ -95,28 +102,29 @@ public class ImageCache {
 	}
 
 	private static class BitmapEntry {
+
+		final Set<OnImageLoadedListener> listeners = new HashSet<ImageCache.OnImageLoadedListener>();
+
 		Bitmap bitmap;
 	}
 
 	private class LoaderJob implements ImageLoader.LoadListener {
-
-		private final OnImageLoadedListener listener;
-
-		public LoaderJob(OnImageLoadedListener listener) {
-			this.listener = listener;
-		}
 
 		@Override
 		public void onLoadFinished(boolean success, String url, Bitmap bitmap) {
 			if (!success)
 				return;
 			fileCache.put(url, bitmap);
+			BitmapEntry entry;
 			synchronized (memCache) {
-				BitmapEntry entry = new BitmapEntry();
+				entry = memCache.get(url);
+				if (entry == null) {
+					entry = new BitmapEntry();
+					memCache.put(url, entry);
+				}
 				entry.bitmap = bitmap;
-				memCache.put(url, entry);
 			}
-			if (listener != null)
+			for (OnImageLoadedListener listener : entry.listeners)
 				listener.onImageLoaded(url, bitmap);
 		}
 
