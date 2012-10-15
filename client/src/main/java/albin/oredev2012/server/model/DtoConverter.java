@@ -16,7 +16,7 @@ import albin.oredev2012.util.StringUtil;
 public class DtoConverter {
 
 	// 2012-11-07T10:00:00
-	private final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat
+	private final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat
 			.forPattern("yyyy-MM-dd'T'HH:mm:ss");
 
 	private LinkedHashMap<String, Session> sessions;

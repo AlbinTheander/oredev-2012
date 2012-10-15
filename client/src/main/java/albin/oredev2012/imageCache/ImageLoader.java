@@ -34,7 +34,7 @@ public class ImageLoader {
 
 			@Override
 			public Thread newThread(Runnable r) {
-				Thread t = new Thread(r);
+				Thread t = new Thread(r, "image-loader");
 				t.setPriority(Thread.MIN_PRIORITY);
 				return t;
 			}
