@@ -71,8 +71,9 @@ public class DtoConverter {
 				for (SessionDTO dto : track.sessions) {
 					DateTime startTime = DATE_TIME_FORMATTER
 							.parseDateTime(dto.startTime);
+					DateTime endTime = startTime.plusMinutes(dto.length);
 					sessions.put(dto.id, new Session(dto.id, dto.name,
-							startTime, track.name, dto.description));
+							startTime, endTime, track.name, dto.description));
 				}
 			}
 		}

@@ -21,7 +21,7 @@ import com.j256.ormlite.table.TableUtils;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 	private static final String DATABASE_NAME = "oredev.db";
-	private static final int DATABASE_VERSION = 9;
+	private static final int DATABASE_VERSION = 10;
 
 	private RuntimeExceptionDao<Speaker, String> speakerDao = null;
 	private RuntimeExceptionDao<Session, String> sessionDao = null;

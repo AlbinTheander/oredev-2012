@@ -23,8 +23,8 @@ public class SessionAdapter extends BaseExpandableListAdapter {
 		List<Session> currentList = null;
 		this.sessions = new ArrayList<List<Session>>();
 		for(Session s: sessions) {
-			if (!s.getTime().equals(lastTime)) {
-				lastTime = s.getTime();
+			if (!s.getStartTime().equals(lastTime)) {
+				lastTime = s.getStartTime();
 				currentList = new ArrayList<Session>();
 				this.sessions.add(currentList);
 			}
@@ -92,7 +92,7 @@ public class SessionAdapter extends BaseExpandableListAdapter {
 		} else {
 			view = SessionListTimeItemView_.build(context);
 		}
-		view.bind(sessions.get(groupPosition).get(0).getTime());
+		view.bind(sessions.get(groupPosition).get(0).getStartTime());
 		return view;
 	}
 

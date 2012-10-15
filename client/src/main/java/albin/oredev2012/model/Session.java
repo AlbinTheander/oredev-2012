@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -23,6 +24,9 @@ public class Session {
 	@DatabaseField(dataType=DataType.DATE_TIME)
 	private DateTime startTime;
 	
+	@DatabaseField(dataType=DataType.DATE_TIME)
+	private DateTime endTime;
+
 	@DatabaseField
 	private String track;
 
@@ -34,15 +38,17 @@ public class Session {
 
 	private List<Speaker> speakers = Collections.emptyList();
 
-	// For serialization
+
 	Session() {
+		// For serialization
 	}
 
-	public Session(String id, String name, DateTime startTime, String track, String description) {
+	public Session(String id, String name, DateTime startTime, DateTime endTime, String track, String description) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.startTime = startTime;
+		this.endTime = endTime;
 		this.track = track;
 		this.description = description;
 	}
@@ -59,8 +65,13 @@ public class Session {
 		return startTime.toLocalDate();
 	}
 	
-	public LocalTime getTime() {
+	public LocalTime getStartTime() {
 		return startTime.toLocalTime();
+	}
+	
+	public Interval getTime() {
+		Interval interval = new Interval(startTime, endTime);
+		return interval;
 	}
 
 	public String getTrack() {

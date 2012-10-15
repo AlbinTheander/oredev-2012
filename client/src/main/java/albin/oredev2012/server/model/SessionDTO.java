@@ -20,7 +20,7 @@ public class SessionDTO {
 	String startTime;
 
 	@Attribute
-	String length;
+	int length;
 
 	@Element(required = false)
 	String description;

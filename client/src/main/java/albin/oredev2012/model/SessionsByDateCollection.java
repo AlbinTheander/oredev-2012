@@ -46,7 +46,7 @@ public class SessionsByDateCollection {
 
 		@Override
 		public int compare(Session lhs, Session rhs) {
-			return lhs.getTime().compareTo(rhs.getTime());
+			return lhs.getStartTime().compareTo(rhs.getStartTime());
 		}
 	
 	}

@@ -1,5 +1,9 @@
 package albin.oredev2012.fragment;
 
+import org.joda.time.Interval;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import albin.oredev2012.R;
 import albin.oredev2012.imageCache.ImageCache;
 import albin.oredev2012.imageCache.ImageCache.OnImageLoadedListener;
@@ -23,6 +27,8 @@ import com.googlecode.androidannotations.annotations.ViewById;
 
 @EFragment(R.layout.fragment_session_detail)
 public class SessionDetailFragment extends Fragment {
+	
+	private static final DateTimeFormatter FORMAT = DateTimeFormat.forPattern("HH:mm");
 
 	@ViewById(R.id.name)
 	protected TextView nameView;
@@ -77,10 +83,20 @@ public class SessionDetailFragment extends Fragment {
 	@UiThread
 	protected void initViews() {
 		nameView.setText(session.getName());
-		startTimeView.setText(session.getTime().toString("HH:mm"));
+		CharSequence time = getTime();
+		startTimeView.setText(time);
 		trackView.setText(session.getTrack());
 		descriptionView.setText(session.getDescription());
 		addSpeakers();
+	}
+
+	private CharSequence getTime() {
+		StringBuffer sb = new StringBuffer();
+		Interval interval = session.getTime();
+		FORMAT.printTo(sb, interval.getStart());
+		sb.append(" - ");
+		FORMAT.printTo(sb, interval.getEnd());
+		return sb;
 	}
 
 	private void addSpeakers() {
