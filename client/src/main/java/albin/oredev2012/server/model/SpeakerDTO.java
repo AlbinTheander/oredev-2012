@@ -16,7 +16,7 @@ public class SpeakerDTO {
 	@Attribute
 	String photoFile;
 
-	@Element
+	@Element(required=false)
 	String biography;
 
 }

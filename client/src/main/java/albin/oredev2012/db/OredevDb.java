@@ -29,6 +29,7 @@ public class OredevDb {
 			this.sessions.put(session.getId(), session);
 		}
 		resolveSpeakersForSessions();
+		resolveSessionsForSpeaker();
 	}
 
 	private void resolveSpeakersForSessions() {
@@ -40,6 +41,15 @@ public class OredevDb {
 				sessionSpeakers.add(speaker);
 			}
 			session.setSpeakers(sessionSpeakers);
+		}
+	}
+
+	private void resolveSessionsForSpeaker() {
+		for (Session session : sessions.values()) {
+			for (Speaker speaker : session.getSpeakers()) {
+				if (speaker != null)
+					speaker.addSession(session);
+			}
 		}
 	}
 

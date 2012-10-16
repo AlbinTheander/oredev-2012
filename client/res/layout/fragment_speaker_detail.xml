@@ -13,6 +13,7 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="AAAAAAA"
             android:textSize="24sp" />
 
         <albin.oredev2012.ui.TextAroundImageLayout_
@@ -37,9 +38,24 @@
                 android:layout_below="@id/name"
                 android:layout_toRightOf="@id/image"
                 android:gravity="fill_horizontal"
-                android:textSize="18sp"
                 tools:context=".SpeakerDetailActivity" />
         </albin.oredev2012.ui.TextAroundImageLayout_>
+
+        <TextView
+            android:id="@+id/sessions_header"
+            style="@android:style/TextAppearance.Medium"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/speaker_info"
+            android:text="Sessions:" />
+
+        <LinearLayout
+            android:id="@+id/sessions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sessions_header"
+            android:orientation="vertical" />
     </RelativeLayout>
 
 </ScrollView>

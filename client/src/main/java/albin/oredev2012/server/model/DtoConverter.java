@@ -28,6 +28,7 @@ public class DtoConverter {
 		initSpeakerList(programDTO);
 		initSessionList(programDTO);
 		resolveSpeakersForSessions(programDTO);
+		resolveSessionsForSpeaker();
 	}
 
 	private void resolveSpeakersForSessions(ProgramDTO programDTO) {
@@ -43,6 +44,15 @@ public class DtoConverter {
 						sessionSpeakers.add(speaker);
 				}
 				session.setSpeakers(sessionSpeakers);
+			}
+		}
+	}
+	
+	private void resolveSessionsForSpeaker() {
+		for (Session session : sessions.values()) {
+			for (Speaker speaker : session.getSpeakers()) {
+				if (speaker != null)
+					speaker.addSession(session);
 			}
 		}
 	}

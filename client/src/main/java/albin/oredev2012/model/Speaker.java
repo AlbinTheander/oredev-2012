@@ -1,5 +1,8 @@
 package albin.oredev2012.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -18,8 +21,10 @@ public class Speaker {
 	@DatabaseField
 	private String biograhpy;
 	
-	// For serialization
+	private List<Session> sessions = new ArrayList<Session>();
+	
 	Speaker() {
+		// For serialization
 	}
 
 	public Speaker(String id, String name, String imageUrl, String biograhpy) {
@@ -45,7 +50,12 @@ public class Speaker {
 		return biograhpy;
 	}
 	
+	public void addSession(Session session) {
+		sessions.add(session);
+	}
 	
-	
+	public List<Session> getSessions() {
+		return sessions;
+	}
 
 }
