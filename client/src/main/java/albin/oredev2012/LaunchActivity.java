@@ -12,7 +12,7 @@ import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 
-@EActivity(R.layout.activity_launch)
+@EActivity(R.layout.launch_activity)
 public class LaunchActivity extends Activity {
 
 	@Bean

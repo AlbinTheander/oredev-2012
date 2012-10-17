@@ -40,7 +40,7 @@ public class SessionListFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		adapter = new SessionAdapter(getActivity(), sessions);
-		View view = inflater.inflate(R.layout.fragment_session_list, null);
+		View view = inflater.inflate(R.layout.session_list_fragment, null);
 		ExpandableListView listView = (ExpandableListView) view
 				.findViewById(R.id.list);
 		listView.setAdapter(adapter);

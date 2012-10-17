@@ -25,7 +25,7 @@ import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 
-@EFragment(R.layout.fragment_session_list_pager)
+@EFragment(R.layout.session_list_pager_fragment)
 public class SessionListPagerFragment extends Fragment {
 	
 	@ViewById

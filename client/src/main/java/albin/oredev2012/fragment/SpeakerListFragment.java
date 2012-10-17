@@ -13,7 +13,7 @@ import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.ViewById;
 
-@EFragment(R.layout.fragment_speaker_list)
+@EFragment(R.layout.speaker_list_fragment)
 public class SpeakerListFragment extends ListFragment {
 
 	public interface SpeakerOpener {

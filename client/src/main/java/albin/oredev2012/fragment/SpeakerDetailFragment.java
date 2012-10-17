@@ -22,7 +22,7 @@ import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 
-@EFragment(R.layout.fragment_speaker_detail)
+@EFragment(R.layout.speaker_detail_fragment)
 public class SpeakerDetailFragment extends Fragment {
 
 	@ViewById(R.id.name)

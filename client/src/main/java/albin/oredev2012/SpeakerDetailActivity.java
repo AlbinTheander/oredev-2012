@@ -11,7 +11,7 @@ import com.googlecode.androidannotations.annotations.Extra;
 import com.googlecode.androidannotations.annotations.FragmentById;
 import com.googlecode.androidannotations.annotations.OptionsItem;
 
-@EActivity(R.layout.activity_speaker_detail)
+@EActivity(R.layout.speaker_detail_activity)
 public class SpeakerDetailActivity extends FragmentActivity {
 
 	@Extra

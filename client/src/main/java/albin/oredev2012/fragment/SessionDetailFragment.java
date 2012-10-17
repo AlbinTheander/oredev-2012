@@ -22,7 +22,7 @@ import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 
-@EFragment(R.layout.fragment_session_detail)
+@EFragment(R.layout.session_detail_fragment)
 public class SessionDetailFragment extends Fragment {
 
 	@ViewById(R.id.name)

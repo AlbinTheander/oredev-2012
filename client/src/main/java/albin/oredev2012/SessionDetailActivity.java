@@ -11,7 +11,7 @@ import com.googlecode.androidannotations.annotations.Extra;
 import com.googlecode.androidannotations.annotations.FragmentById;
 import com.googlecode.androidannotations.annotations.OptionsItem;
 
-@EActivity(R.layout.activity_session_detail)
+@EActivity(R.layout.session_detail_activity)
 public class SessionDetailActivity extends FragmentActivity {
 	
 	@Extra

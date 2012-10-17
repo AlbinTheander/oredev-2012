@@ -17,7 +17,7 @@ import com.googlecode.androidannotations.annotations.FragmentById;
 import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.ViewById;
 
-@EActivity(R.layout.activity_session_list)
+@EActivity(R.layout.session_list_activity)
 public class SessionListActivity extends FragmentActivity implements
 		SessionOpener {
 
