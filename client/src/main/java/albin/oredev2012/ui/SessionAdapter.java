@@ -92,7 +92,7 @@ public class SessionAdapter extends BaseExpandableListAdapter {
 		} else {
 			view = SessionListTimeItemView_.build(context);
 		}
-		view.bind(sessions.get(groupPosition).get(0).getStartTime());
+		view.bind(sessions.get(groupPosition).get(0).getStartTime(), isExpanded);
 		return view;
 	}
 

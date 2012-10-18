@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:orientation="vertical" >
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="5dp" />
+    android:orientation="vertical" 
+    android:layout_marginTop="8dp">
 
     <TextView
         android:id="@+id/time"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="5"
         android:gravity="center"
-        android:background="#ffcccccc"
-        android:paddingBottom="2dp"
         android:paddingLeft="6dip"
         android:paddingRight="6dip"
-        android:text="balalalal"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold" />
 
