@@ -2,4 +2,10 @@
 
     <style name="AppTheme" parent="android:Theme.Light" />
 
+    <style name="normalText" parent="android:Widget.Holo.Light.TextView">
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="bigText" parent="android:Widget.Holo.Light.TextView">
+        <item name="android:textSize">24sp</item>
+    </style>
 </resources>

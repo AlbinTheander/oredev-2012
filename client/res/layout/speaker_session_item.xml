@@ -8,11 +8,13 @@
 
     <TextView
         android:id="@+id/name"
+        style="@style/normalText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/track"
+        style="@style/normalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/name"
@@ -20,33 +22,36 @@
 
     <TextView
         android:id="@+id/comma"
+        style="@style/normalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/name"
         android:layout_toRightOf="@id/track"
         android:text="@string/comma"
         android:textColor="#ff666666" />
-    
+
     <TextView
         android:id="@+id/date"
-        style="@android:style/TextAppearance.Small"
+        style="@style/normalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/name"
         android:layout_toRightOf="@id/comma"
         android:textColor="#ff666666" />
-    
+
     <TextView
         android:id="@+id/comma2"
+        style="@style/normalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/name"
         android:layout_toRightOf="@id/date"
         android:text="@string/comma"
         android:textColor="#ff666666" />
+
     <TextView
         android:id="@+id/time"
-        style="@android:style/TextAppearance.Small"
+        style="@style/normalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/name"

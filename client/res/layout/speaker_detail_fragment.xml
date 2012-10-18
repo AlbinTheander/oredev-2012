@@ -11,9 +11,9 @@
 
         <TextView
             android:id="@+id/name"
+            style="@style/bigText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp" />
+            android:layout_height="wrap_content" />
 
         <albin.oredev2012.ui.TextAroundImageLayout_
             android:id="@+id/speaker_info"
@@ -32,6 +32,7 @@
 
             <TextView
                 android:id="@+id/biography"
+                style="@style/normalText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/name"
@@ -42,11 +43,12 @@
 
         <TextView
             android:id="@+id/sessions_header"
-            style="@android:style/TextAppearance.Medium"
-            android:textStyle="bold"
+            style="@style/bigText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/speaker_info" />
+            android:layout_below="@id/speaker_info"
+            android:text="@string/sessions_title"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/sessions"

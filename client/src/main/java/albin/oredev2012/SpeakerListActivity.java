@@ -16,7 +16,7 @@ import com.googlecode.androidannotations.annotations.FragmentById;
 import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.ViewById;
 
-@EActivity(R.layout.activity_speaker_list)
+@EActivity(R.layout.speaker_list_activity)
 public class SpeakerListActivity extends FragmentActivity implements
 		SpeakerOpener {
 
