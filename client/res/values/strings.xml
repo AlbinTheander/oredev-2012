@@ -13,5 +13,8 @@
     <string name="menu_settings">Settings</string>
     <string name="title_activity_session_detail">SessionDetailActivity</string>
     <string name="comma">", "</string>
+    <string name="oredev_logo">Øredev logo</string>
+    <string name="one_day_back">One day back</string>
+    <string name="one_day_forward">One day forward</string>
 
 </resources>

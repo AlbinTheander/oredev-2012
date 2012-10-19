@@ -28,15 +28,15 @@ public class SessionListFragment extends Fragment {
 	public interface SessionOpener {
 		void openSession(Session session);
 	}
-	
+
 	@Bean
 	protected Repository repo;
-	
+
 	@ViewById
 	protected ExpandableListView list;
 
 	protected SessionAdapter adapter;
-	
+
 	private SessionOpener opener;
 
 	public SessionListFragment() {
@@ -46,13 +46,15 @@ public class SessionListFragment extends Fragment {
 	public void setSessionOpener(SessionOpener opener) {
 		this.opener = opener;
 	}
-	
+
 	@AfterViews
 	public void init() {
-		LocalDate sessionDate = (LocalDate) getArguments().get(ARG_SESSION_DATE);
+		LocalDate sessionDate = (LocalDate) getArguments()
+				.get(ARG_SESSION_DATE);
 		Logg.d("Showing session list for " + sessionDate);
 		List<Session> allSessions = repo.getSessions();
-		SessionsByDateCollection sessionsByDate = new SessionsByDateCollection(allSessions);
+		SessionsByDateCollection sessionsByDate = new SessionsByDateCollection(
+				allSessions);
 		List<Session> sessions = sessionsByDate.getSessions(sessionDate);
 		adapter = new SessionAdapter(getActivity(), sessions);
 		list.setAdapter(adapter);

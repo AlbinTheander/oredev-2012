@@ -17,11 +17,14 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.View;
+import android.widget.TextView;
 
 import com.googlecode.androidannotations.annotations.AfterInject;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Bean;
+import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
@@ -31,6 +34,15 @@ public class SessionListPagerFragment extends Fragment {
 
 	@ViewById
 	protected ViewPager sessionListPager;
+
+	@ViewById
+	protected View yesterday;
+
+	@ViewById
+	protected TextView today;
+
+	@ViewById
+	protected View tomorrow;
 
 	@Bean
 	protected Repository repo;
@@ -53,18 +65,35 @@ public class SessionListPagerFragment extends Fragment {
 		initPager();
 	}
 
+	@Click(R.id.yesterday)
+	public void goToYesterday() {
+		switchDay(-1);
+	}
+
+	@Click(R.id.tomorrow)
+	public void goToTomorrow() {
+		switchDay(1);
+	}
+
+	private void switchDay(int i) {
+		int currentIndex = sessionListPager.getCurrentItem();
+		sessionListPager.setCurrentItem(currentIndex + i, true);
+	}
+
 	@UiThread
 	protected void initPager() {
 		setActivityTitle(getActivity(), sessions.getDates().get(0));
 		SessionListPagerAdapter adapter = new SessionListPagerAdapter(
 				getActivity(), sessions);
 		sessionListPager.setAdapter(adapter);
+		updateDays();
 		sessionListPager.setOnPageChangeListener(new OnPageChangeListener() {
 
 			@Override
 			public void onPageSelected(int position) {
 				LocalDate date = sessions.getDates().get(position);
 				setActivityTitle(getActivity(), date);
+				updateDays();
 			}
 
 			@Override
@@ -80,6 +109,23 @@ public class SessionListPagerFragment extends Fragment {
 
 			}
 		});
+	}
+
+	private void updateDays() {
+		int index = sessionListPager.getCurrentItem();
+		int maxIndex = sessionListPager.getAdapter().getCount() - 1;
+		if (index == 0) {
+			yesterday.setVisibility(View.INVISIBLE);
+		} else {
+			yesterday.setVisibility(View.VISIBLE);
+		}
+		if (index == maxIndex) {
+			tomorrow.setVisibility(View.INVISIBLE);
+		} else {
+			tomorrow.setVisibility(View.VISIBLE);
+		}
+		today.setText(StringUtils.capitalize(sessions.getDates().get(index).dayOfWeek().getAsText()));
+
 	}
 
 	private static void setActivityTitle(Activity activity, LocalDate date) {

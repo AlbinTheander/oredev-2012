@@ -4,9 +4,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <LinearLayout
+        android:id="@+id/days"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <ImageButton
+            android:id="@+id/yesterday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_circle"
+            android:contentDescription="@string/one_day_back"
+            android:gravity="center"
+            android:src="@drawable/ic_menu_back" />
+
+        <TextView
+            android:id="@+id/today"
+            style="@style/bigText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center" />
+
+        <ImageButton
+            android:id="@+id/tomorrow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_circle"
+            android:contentDescription="@string/one_day_forward"
+            android:gravity="center"
+            android:src="@drawable/ic_menu_forward" />
+    </LinearLayout>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/session_list_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/days" />
 
 </RelativeLayout>
