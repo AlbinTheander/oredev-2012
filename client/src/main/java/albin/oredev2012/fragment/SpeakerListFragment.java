@@ -3,28 +3,28 @@ package albin.oredev2012.fragment;
 import albin.oredev2012.R;
 import albin.oredev2012.model.Speaker;
 import albin.oredev2012.ui.SpeakerAdapter;
-import android.support.v4.app.ListFragment;
-import android.view.View;
+import android.support.v4.app.Fragment;
 import android.widget.ListView;
 
 import com.googlecode.androidannotations.annotations.AfterInject;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EFragment;
+import com.googlecode.androidannotations.annotations.ItemClick;
 import com.googlecode.androidannotations.annotations.ViewById;
 
 @EFragment(R.layout.speaker_list_fragment)
-public class SpeakerListFragment extends ListFragment {
+public class SpeakerListFragment extends Fragment {
 
 	public interface SpeakerOpener {
 		void openSpeaker(Speaker speaker);
 	}
+	
+	@ViewById
+	protected ListView list;
 
 	@Bean
 	protected SpeakerAdapter adapter;
-
-	@ViewById(android.R.id.list)
-	protected ListView list;
 
 	private SpeakerOpener opener;
 
@@ -33,24 +33,18 @@ public class SpeakerListFragment extends ListFragment {
 	}
 
 	@AfterInject
-	protected void init() {
-		initViews();
-	}
-
 	@AfterViews
-	protected void initViews() {
+	protected void init() {
 		if (list != null && adapter != null) {
-			setListAdapter(adapter);
 			list.setAdapter(adapter);
 			list.setOnScrollListener(adapter);
 		}
 	}
 
-	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
+
+	@ItemClick(R.id.list)
+	public void onListItemClick(Speaker speaker) {
 		if (opener != null) {
-			Speaker speaker = adapter.getSpeaker((int) adapter
-					.getItemId(position));
 			opener.openSpeaker(speaker);
 		}
 	}

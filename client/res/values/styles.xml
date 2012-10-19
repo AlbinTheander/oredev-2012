@@ -1,11 +1,15 @@
 <resources>
 
-    <style name="AppTheme" parent="android:Theme.Light" />
+    <style name="AppTheme" parent="android:Theme.Black" />
+    
+    <style name="oredevText" parent="android:Widget.TextView">
+        <item name="android:textColor">#ffffffff</item>
+    </style>
 
-    <style name="normalText" parent="android:Widget.Holo.Light.TextView">
+    <style name="normalText" parent="oredevText">
         <item name="android:textSize">18sp</item>
     </style>
-    <style name="bigText" parent="android:Widget.Holo.Light.TextView">
+    <style name="bigText" parent="oredevText">
         <item name="android:textSize">24sp</item>
     </style>
 </resources>

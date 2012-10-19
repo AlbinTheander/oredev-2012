@@ -1,35 +1,59 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:oredev="http://schemas.android.com/apk/res/albin.oredev2012"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@drawable/background" >
 
-    <Button
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/logo_oredev" />
+
+    <albin.oredev2012.ui.RotatedTextButton
         android:id="@+id/sessions_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_below="@id/logo"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/red_circle_button"
         android:text="@string/sessions_title"
+        android:textColor="#ffffffff"
+        android:textStyle="bold"
+        oredev:text_angle="-30"
         tools:context=".LaunchActivity" />
 
-    <Button
+    <albin.oredev2012.ui.RotatedTextButton
         android:id="@+id/speakers_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_below="@id/sessions_button"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="-30dp"
+        android:background="@drawable/red_circle_button"
         android:text="@string/speakers_title"
+        android:textColor="#ffffffff"
+        android:textStyle="bold"
+        oredev:text_angle="30"
         tools:context=".LaunchActivity" />
 
-    <Button
+    <albin.oredev2012.ui.RotatedTextButton
         android:id="@+id/refresh_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/speakers_button"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="-30dp"
+        android:background="@drawable/red_circle_button"
         android:text="@string/action_refresh"
+        android:textColor="#ffffffff"
+        android:textStyle="bold"
+        oredev:text_angle="-30"
         tools:context=".LaunchActivity" />
 
     <LinearLayout
@@ -40,8 +64,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:visibility="invisible"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:visibility="invisible" >
 
         <ProgressBar
             android:layout_width="wrap_content"
