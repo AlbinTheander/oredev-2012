@@ -1,10 +1,10 @@
 package albin.oredev2012;
 
+import albin.oredev2012.fragment.ItemOpener;
 import albin.oredev2012.fragment.SessionDetailFragment;
 import albin.oredev2012.fragment.SessionListFragment;
-import albin.oredev2012.fragment.SessionListFragment.SessionOpener;
 import albin.oredev2012.fragment.SessionListPagerFragment;
-import albin.oredev2012.model.Session;
+import albin.oredev2012.model.Item;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.support.v4.app.Fragment;
@@ -19,7 +19,7 @@ import com.googlecode.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.session_list_activity)
 public class SessionListActivity extends FragmentActivity implements
-		SessionOpener {
+		ItemOpener {
 
 	@FragmentById
 	protected SessionListPagerFragment sessionListPagerFragment;
@@ -42,7 +42,7 @@ public class SessionListActivity extends FragmentActivity implements
 	public void onAttachFragment(Fragment fragment) {
 		if (fragment instanceof SessionListFragment) {
 			SessionListFragment frag = (SessionListFragment) fragment;
-			frag.setSessionOpener(this);
+			frag.setItemOpener(this);
 		}
 		super.onAttachFragment(fragment);
 	}
@@ -53,11 +53,11 @@ public class SessionListActivity extends FragmentActivity implements
 	}
 
 	@Override
-	public void openSession(Session session) {
+	public void openItem(Item item) {
 		if (sessionDetailFragmentView != null) {
-			sessionDetailFragment.setSessionId(session.getId());
+			sessionDetailFragment.setSessionId(item.getId());
 		} else {
-			SessionDetailActivity_.intent(this).sessionId(session.getId())
+			SessionDetailActivity_.intent(this).sessionId(item.getId())
 					.start();
 		}
 	}

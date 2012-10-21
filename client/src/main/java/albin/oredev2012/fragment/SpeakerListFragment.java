@@ -16,19 +16,15 @@ import com.googlecode.androidannotations.annotations.ViewById;
 @EFragment(R.layout.speaker_list_fragment)
 public class SpeakerListFragment extends Fragment {
 
-	public interface SpeakerOpener {
-		void openSpeaker(Speaker speaker);
-	}
-	
 	@ViewById
 	protected ListView list;
 
 	@Bean
 	protected SpeakerAdapter adapter;
 
-	private SpeakerOpener opener;
+	private ItemOpener opener;
 
-	public void setSpeakerOpener(SpeakerOpener opener) {
+	public void setItemOpener(ItemOpener opener) {
 		this.opener = opener;
 	}
 
@@ -45,7 +41,7 @@ public class SpeakerListFragment extends Fragment {
 	@ItemClick(R.id.list)
 	public void onListItemClick(Speaker speaker) {
 		if (opener != null) {
-			opener.openSpeaker(speaker);
+			opener.openItem(speaker);
 		}
 	}
 

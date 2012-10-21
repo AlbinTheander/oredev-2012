@@ -14,11 +14,12 @@
         android:layout_marginTop="5dp"
         android:contentDescription="@string/oredev_logo"
         android:src="@drawable/logo_oredev" />
-    
-       <TableLayout
+
+    <TableLayout
+        android:id="@+id/button_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
         android:stretchColumns="*" >
 
         <TableRow>
@@ -38,6 +39,7 @@
                 android:text="@string/speakers_title"
                 oredev:text_angle="30"
                 tools:context=".LaunchActivity" />
+
         </TableRow>
 
         <TableRow>
@@ -47,8 +49,7 @@
                 style="@style/launch_view_button"
                 android:layout_height="fill_parent"
                 android:text="@string/action_search"
-                oredev:text_angle="30"
-                tools:context=".LaunchActivity" />
+                oredev:text_angle="30" />
 
             <albin.oredev2012.ui.RotatedTextButton
                 android:id="@+id/refresh_button"
@@ -64,7 +65,7 @@
         android:id="@+id/loading_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/refresh_button"
+        android:layout_below="@id/button_layout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:gravity="center"

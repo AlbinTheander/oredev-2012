@@ -25,10 +25,6 @@ public class SessionListFragment extends Fragment {
 
 	public static final String ARG_SESSION_DATE = "session_id";
 
-	public interface SessionOpener {
-		void openSession(Session session);
-	}
-
 	@Bean
 	protected Repository repo;
 
@@ -37,13 +33,13 @@ public class SessionListFragment extends Fragment {
 
 	protected SessionAdapter adapter;
 
-	private SessionOpener opener;
+	private ItemOpener opener;
 
 	public SessionListFragment() {
 		setRetainInstance(true);
 	}
 
-	public void setSessionOpener(SessionOpener opener) {
+	public void setItemOpener(ItemOpener opener) {
 		this.opener = opener;
 	}
 
@@ -69,7 +65,7 @@ public class SessionListFragment extends Fragment {
 			if (opener != null) {
 				Session session = adapter.getSession(groupPosition,
 						childPosition);
-				opener.openSession(session);
+				opener.openItem(session);
 				return true;
 			}
 			return false;

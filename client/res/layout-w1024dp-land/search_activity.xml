@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="horizontal" >
+
+    <fragment
+        android:id="@+id/search_fragment"
+        android:name="albin.oredev2012.fragment.SearchFragment_"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.3" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#FF000000" />
+
+    <FrameLayout
+        android:id="@+id/detail_holder"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.7" >
+
+        <fragment
+            android:id="@+id/session_detail_fragment"
+            android:name="albin.oredev2012.fragment.SessionDetailFragment_"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <fragment
+            android:id="@+id/speaker_detail_fragment"
+            android:name="albin.oredev2012.fragment.SpeakerDetailFragment_"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+</LinearLayout>
