@@ -14,49 +14,51 @@
         android:layout_marginTop="5dp"
         android:contentDescription="@string/oredev_logo"
         android:src="@drawable/logo_oredev" />
-
-    <albin.oredev2012.ui.RotatedTextButton
-        android:id="@+id/speakers_button"
+    
+       <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@drawable/red_circle_button"
-        android:text="@string/speakers_title"
-        android:textColor="#ffffffff"
-        android:textStyle="bold"
-        oredev:text_angle="30"
-        tools:context=".LaunchActivity" />
+        android:stretchColumns="*" >
 
-    <albin.oredev2012.ui.RotatedTextButton
-        android:id="@+id/sessions_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/speakers_button"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="-30dp"
-        android:layout_toLeftOf="@id/speakers_button"
-        android:background="@drawable/red_circle_button"
-        android:text="@string/sessions_title"
-        android:textColor="#ffffffff"
-        android:textStyle="bold"
-        oredev:text_angle="-30"
-        tools:context=".LaunchActivity" />
+        <TableRow>
 
-    <albin.oredev2012.ui.RotatedTextButton
-        android:id="@+id/refresh_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/speakers_button"
-        android:layout_below="@id/speakers_button"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="-30dp"
-        android:layout_toRightOf="@id/speakers_button"
-        android:background="@drawable/red_circle_button"
-        android:text="@string/action_refresh"
-        android:textColor="#ffffffff"
-        android:textStyle="bold"
-        oredev:text_angle="-30"
-        tools:context=".LaunchActivity" />
+            <albin.oredev2012.ui.RotatedTextButton
+                android:id="@+id/sessions_button"
+                style="@style/launch_view_button"
+                android:layout_height="fill_parent"
+                android:text="@string/sessions_title"
+                oredev:text_angle="30"
+                tools:context=".LaunchActivity" />
+
+            <albin.oredev2012.ui.RotatedTextButton
+                android:id="@+id/speakers_button"
+                style="@style/launch_view_button"
+                android:layout_height="fill_parent"
+                android:text="@string/speakers_title"
+                oredev:text_angle="30"
+                tools:context=".LaunchActivity" />
+        </TableRow>
+
+        <TableRow>
+
+            <albin.oredev2012.ui.RotatedTextButton
+                android:id="@+id/search_button"
+                style="@style/launch_view_button"
+                android:layout_height="fill_parent"
+                android:text="@string/action_search"
+                oredev:text_angle="30"
+                tools:context=".LaunchActivity" />
+
+            <albin.oredev2012.ui.RotatedTextButton
+                android:id="@+id/refresh_button"
+                style="@style/launch_view_button"
+                android:layout_height="fill_parent"
+                android:text="@string/action_refresh"
+                oredev:text_angle="30"
+                tools:context=".LaunchActivity" />
+        </TableRow>
+    </TableLayout>
 
     <LinearLayout
         android:id="@+id/loading_progress"
