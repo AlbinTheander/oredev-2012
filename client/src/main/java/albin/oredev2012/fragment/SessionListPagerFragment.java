@@ -53,8 +53,9 @@ public class SessionListPagerFragment extends Fragment {
 	@AfterInject
 	@AfterViews
 	protected void initViews() {
-		if (sessionListPager == null || repo == null)
+		if (sessionListPager == null || repo == null) {
 			return;
+		}
 		getSessions();
 	}
 
@@ -124,7 +125,8 @@ public class SessionListPagerFragment extends Fragment {
 		} else {
 			tomorrow.setVisibility(View.VISIBLE);
 		}
-		today.setText(StringUtils.capitalize(sessions.getDates().get(index).dayOfWeek().getAsText()));
+		today.setText(StringUtils.capitalize(sessions.getDates().get(index)
+				.dayOfWeek().getAsText()));
 
 	}
 
@@ -138,7 +140,7 @@ public class SessionListPagerFragment extends Fragment {
 		private final SessionsByDateCollection sessions;
 		private final FragmentActivity activity;
 
-		public SessionListPagerAdapter(FragmentActivity activity,
+		private SessionListPagerAdapter(FragmentActivity activity,
 				SessionsByDateCollection sessions) {
 			super(activity.getSupportFragmentManager());
 			this.activity = activity;
@@ -150,7 +152,7 @@ public class SessionListPagerFragment extends Fragment {
 			LocalDate date = sessions.getDates().get(position);
 			Bundle args = new Bundle();
 			args.putSerializable(SessionListFragment.ARG_SESSION_DATE, date);
-			SessionListFragment fragment = (SessionListFragment) SessionListFragment_
+			SessionListFragment fragment = (SessionListFragment) Fragment
 					.instantiate(activity,
 							SessionListFragment_.class.getName(), args);
 			return fragment;

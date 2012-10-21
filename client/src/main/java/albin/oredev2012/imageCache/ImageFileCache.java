@@ -44,13 +44,14 @@ public class ImageFileCache {
 	}
 
 	private static CompressFormat guessFormatFromUrl(String url) {
-		int suffixPos = url.lastIndexOf(".");
+		int suffixPos = url.lastIndexOf('.');
 		String suffix = "jpg";
 		if (suffixPos > 0) {
 			suffix = url.substring(suffixPos + 1).toLowerCase();
 		}
-		if ("png".equals(suffix))
+		if ("png".equals(suffix)) {
 			return CompressFormat.PNG;
+		}
 		return CompressFormat.JPEG;
 	}
 
@@ -61,7 +62,8 @@ public class ImageFileCache {
 		try {
 			md = MessageDigest.getInstance("MD5");
 			byte[] thedigest = md.digest(urlBytes);
-			return encodeHex(thedigest) + "." + url.substring(url.lastIndexOf(".")+1);
+			return encodeHex(thedigest) + "."
+					+ url.substring(url.lastIndexOf('.') + 1);
 		} catch (NoSuchAlgorithmException e) {
 			Logg.e("Fatal error. MD5 is not here!!!");
 		}

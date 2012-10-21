@@ -16,11 +16,10 @@ public class SpeakerDetailActivity extends FragmentActivity {
 
 	@Extra
 	protected String speakerId;
-	
+
 	@FragmentById
 	protected SpeakerDetailFragment speakerDetailFragment;
-	
-	
+
 	@SuppressLint("NewApi")
 	@AfterViews
 	protected void initViews() {
@@ -29,10 +28,10 @@ public class SpeakerDetailActivity extends FragmentActivity {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 	}
-	
+
 	@OptionsItem(android.R.id.home)
 	public void goHome() {
 		finish();
 	}
-	
+
 }

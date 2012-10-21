@@ -47,20 +47,23 @@ public class SpeakerDetailFragment extends Fragment {
 	@AfterInject
 	protected void afterInject() {
 		setRetainInstance(false);
-		if (isInitalized())
+		if (isInitalized()) {
 			initInBackground();
+		}
 	}
 
 	@AfterViews
 	protected void afterViews() {
-		if (isInitalized())
+		if (isInitalized()) {
 			initInBackground();
+		}
 	}
 
 	public void setSpeakerId(String speakerId) {
 		this.speakerId = speakerId;
-		if (isInitalized())
+		if (isInitalized()) {
 			initInBackground();
+		}
 	}
 
 	private boolean isInitalized() {
@@ -70,8 +73,9 @@ public class SpeakerDetailFragment extends Fragment {
 	@Background
 	protected void initInBackground() {
 		speaker = repo.getSpeaker(speakerId);
-		if (speaker == null)
+		if (speaker == null) {
 			return;
+		}
 		Bitmap image = imageCache.getImage(speaker.getImageUrl(), true,
 				new OnImageLoadedListener() {
 
@@ -81,8 +85,9 @@ public class SpeakerDetailFragment extends Fragment {
 					}
 				});
 		initViews();
-		if (image != null)
+		if (image != null) {
 			setImage(image);
+		}
 	}
 
 	@UiThread

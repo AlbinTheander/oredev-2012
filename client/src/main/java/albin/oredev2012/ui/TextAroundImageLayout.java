@@ -53,10 +53,12 @@ public class TextAroundImageLayout extends FrameLayout {
 		int childCount = getChildCount();
 		for (int i = 0; i < childCount; i++) {
 			View child = getChildAt(i);
-			if (child instanceof ImageView)
+			if (child instanceof ImageView) {
 				imageView = (ImageView) child;
-			if (child instanceof TextView)
+			}
+			if (child instanceof TextView) {
 				textView = (TextView) child;
+			}
 		}
 	}
 
@@ -71,8 +73,9 @@ public class TextAroundImageLayout extends FrameLayout {
 	}
 
 	private void wrapTextAroundImage() {
-		if (text == null)
+		if (text == null) {
 			return;
+		}
 
 		// Calculate how many lines in the textView that are next to the
 		// imageView
@@ -90,9 +93,10 @@ public class TextAroundImageLayout extends FrameLayout {
 		textView.setText(ss);
 	}
 
-	static class FirstLinesIndent implements LeadingMarginSpan.LeadingMarginSpan2 {
-		private int margin;
-		private int lines;
+	static class FirstLinesIndent implements
+			LeadingMarginSpan.LeadingMarginSpan2 {
+		private final int margin;
+		private final int lines;
 
 		FirstLinesIndent(int lines, int margin) {
 			this.margin = margin;

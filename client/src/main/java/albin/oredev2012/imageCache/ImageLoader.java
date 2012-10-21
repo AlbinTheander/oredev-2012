@@ -10,6 +10,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import albin.oredev2012.util.Logg;
 import albin.oredev2012.util.StreamUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -49,9 +50,9 @@ public class ImageLoader {
 			StreamUtil.closeSilently(in);
 			return bitmap;
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			Logg.e("Couldn't decode image from server", e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logg.e("Problem reading image from server", e);
 		}
 		return null;
 	}
@@ -62,30 +63,29 @@ public class ImageLoader {
 	}
 
 	private static class LoaderJob implements Callable<Bitmap> {
-		private String url;
-		private LoadListener listener;
+		private final String url;
+		private final LoadListener listener;
 
-		public LoaderJob(String url, LoadListener listener) {
+		private LoaderJob(String url, LoadListener listener) {
 			this.url = url;
 			this.listener = listener;
 		}
 
 		@Override
-		public Bitmap call() throws Exception {
+		public Bitmap call() {
 			try {
 				URL imageUrl = new URL(url);
 				InputStream in = (InputStream) imageUrl.getContent();
 				Bitmap bitmap = BitmapFactory.decodeStream(in);
 				StreamUtil.closeSilently(in);
-				if (listener != null)
+				if (listener != null) {
 					listener.onLoadFinished(true, url, bitmap);
+				}
 				return bitmap;
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logg.e("Invalid url to image", e);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logg.e("Problem reading file from server", e);
 			}
 			return null;
 		}

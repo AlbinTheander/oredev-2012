@@ -10,21 +10,22 @@ import java.util.Map;
 import org.joda.time.LocalDate;
 
 public class SessionsByDateCollection {
-	
-	private Map<LocalDate, List<Session>> sessionsByDate = new LinkedHashMap<LocalDate, List<Session>>();
-	
+
+	private final Map<LocalDate, List<Session>> sessionsByDate = new LinkedHashMap<LocalDate, List<Session>>();
+
 	public SessionsByDateCollection() {
 	}
-	
+
 	public SessionsByDateCollection(List<Session> sessions) {
-		for(Session session: sessions) {
+		for (Session session : sessions) {
 			putSession(session);
 		}
-		for(LocalDate date: sessionsByDate.keySet()) {
-			Collections.sort(sessionsByDate.get(date), new SessionByDateComparator());
+		for (LocalDate date : sessionsByDate.keySet()) {
+			Collections.sort(sessionsByDate.get(date),
+					new SessionByDateComparator());
 		}
 	}
-	
+
 	private void putSession(Session session) {
 		List<Session> sessions = sessionsByDate.get(session.getDate());
 		if (sessions == null) {
@@ -37,7 +38,7 @@ public class SessionsByDateCollection {
 	public List<LocalDate> getDates() {
 		return new ArrayList<LocalDate>(sessionsByDate.keySet());
 	}
-	
+
 	public List<Session> getSessions(LocalDate date) {
 		return sessionsByDate.get(date);
 	}
@@ -48,7 +49,7 @@ public class SessionsByDateCollection {
 		public int compare(Session lhs, Session rhs) {
 			return lhs.getStartTime().compareTo(rhs.getStartTime());
 		}
-	
+
 	}
 
 }

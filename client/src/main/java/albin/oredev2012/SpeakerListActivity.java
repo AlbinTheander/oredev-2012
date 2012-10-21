@@ -17,8 +17,7 @@ import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.speaker_list_activity)
-public class SpeakerListActivity extends FragmentActivity implements
-		ItemOpener {
+public class SpeakerListActivity extends FragmentActivity implements ItemOpener {
 
 	@FragmentById
 	protected SpeakerDetailFragment speakerDetailFragment;
@@ -39,7 +38,7 @@ public class SpeakerListActivity extends FragmentActivity implements
 	public void goHome() {
 		finish();
 	}
-	
+
 	@Override
 	public void onAttachFragment(Fragment fragment) {
 		if (fragment instanceof SpeakerListFragment) {
@@ -49,11 +48,12 @@ public class SpeakerListActivity extends FragmentActivity implements
 		super.onAttachFragment(fragment);
 	}
 
+	@Override
 	public void openItem(Item item) {
-		if (speakerDetailView != null)
+		if (speakerDetailView != null) {
 			speakerDetailFragment.setSpeakerId(item.getId());
-		else
-			SpeakerDetailActivity_.intent(this).speakerId(item.getId())
-					.start();
+		} else {
+			SpeakerDetailActivity_.intent(this).speakerId(item.getId()).start();
+		}
 	}
 }

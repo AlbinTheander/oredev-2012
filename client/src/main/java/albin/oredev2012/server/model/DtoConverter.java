@@ -16,12 +16,12 @@ import albin.oredev2012.util.StringUtil;
 public class DtoConverter {
 
 	// 2012-11-07T10:00:00
-	private final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat
+	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat
 			.forPattern("yyyy-MM-dd'T'HH:mm:ss");
 
 	private LinkedHashMap<String, Session> sessions;
 	private LinkedHashMap<String, Speaker> speakers;
-	private DTOValidator validator;
+	private final DTOValidator validator;
 
 	public DtoConverter(ProgramDTO programDTO) {
 		validator = new DTOValidator();
@@ -35,24 +35,27 @@ public class DtoConverter {
 		for (TrackDTO track : programDTO.tracks) {
 			for (SessionDTO sessionDTO : track.sessions) {
 				Session session = sessions.get(sessionDTO.id);
-				if (session == null)
+				if (session == null) {
 					continue;
+				}
 				List<Speaker> sessionSpeakers = new ArrayList<Speaker>();
 				for (SpeakerId speakerId : sessionDTO.speakers) {
 					Speaker speaker = speakers.get(speakerId.id);
-					if (speaker != null)
+					if (speaker != null) {
 						sessionSpeakers.add(speaker);
+					}
 				}
 				session.setSpeakers(sessionSpeakers);
 			}
 		}
 	}
-	
+
 	private void resolveSessionsForSpeaker() {
 		for (Session session : sessions.values()) {
 			for (Speaker speaker : session.getSpeakers()) {
-				if (speaker != null)
+				if (speaker != null) {
 					speaker.addSession(session);
+				}
 			}
 		}
 	}

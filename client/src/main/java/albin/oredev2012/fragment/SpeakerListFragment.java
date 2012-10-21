@@ -37,7 +37,6 @@ public class SpeakerListFragment extends Fragment {
 		}
 	}
 
-
 	@ItemClick(R.id.list)
 	public void onListItemClick(Speaker speaker) {
 		if (opener != null) {

@@ -10,7 +10,7 @@ public class FormatUtil {
 
 	private static final DateTimeFormatter HOUR_MINUTE_FORMAT = DateTimeFormat
 			.forPattern("HH:mm");
-	
+
 	public static CharSequence format(Interval interval) {
 		StringBuilder sb = new StringBuilder();
 		try {
@@ -22,5 +22,5 @@ public class FormatUtil {
 		}
 		return sb;
 	}
-	
+
 }

@@ -3,6 +3,7 @@ package albin.oredev2012.db;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import albin.oredev2012.model.Session;
 import albin.oredev2012.model.Speaker;
@@ -12,8 +13,8 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 public class OredevDb {
 
-	private LinkedHashMap<String, Session> sessions = new LinkedHashMap<String, Session>();
-	private LinkedHashMap<String, Speaker> speakers = new LinkedHashMap<String, Speaker>();
+	private final Map<String, Session> sessions = new LinkedHashMap<String, Session>();
+	private final Map<String, Speaker> speakers = new LinkedHashMap<String, Speaker>();
 
 	public OredevDb(Context context) {
 		DatabaseHelper db = new DatabaseHelper(context);
@@ -47,8 +48,9 @@ public class OredevDb {
 	private void resolveSessionsForSpeaker() {
 		for (Session session : sessions.values()) {
 			for (Speaker speaker : session.getSpeakers()) {
-				if (speaker != null)
+				if (speaker != null) {
 					speaker.addSession(session);
+				}
 			}
 		}
 	}

@@ -75,7 +75,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		}
 		return speakerDao;
 	}
-	
+
 	public RuntimeExceptionDao<Session, String> getSessionDao() {
 		if (sessionDao == null) {
 			sessionDao = getRuntimeExceptionDao(Session.class);

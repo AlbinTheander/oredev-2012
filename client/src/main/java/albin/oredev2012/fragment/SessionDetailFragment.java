@@ -53,14 +53,16 @@ public class SessionDetailFragment extends Fragment {
 	@AfterViews
 	@AfterInject
 	protected void afterInject() {
-		if (isInitalized())
+		if (isInitalized()) {
 			initInBackground();
+		}
 	}
 
 	public void setSessionId(String sessionId) {
 		this.sessionId = sessionId;
-		if (isInitalized())
+		if (isInitalized()) {
 			initInBackground();
+		}
 	}
 
 	private boolean isInitalized() {
@@ -71,8 +73,9 @@ public class SessionDetailFragment extends Fragment {
 	@Background
 	protected void initInBackground() {
 		session = repo.getSession(sessionId);
-		if (session == null)
+		if (session == null) {
 			return;
+		}
 		initViews();
 	}
 
@@ -88,8 +91,9 @@ public class SessionDetailFragment extends Fragment {
 	private void addSpeakers() {
 		speakersView.removeAllViews();
 		for (Speaker speaker : session.getSpeakers()) {
-			if (speaker == null)
+			if (speaker == null) {
 				continue;
+			}
 			String name = speaker.getName();
 			Bitmap speakerImage = imageCache.getImage(speaker.getImageUrl(),
 					true, new OnImageLoadedListener() {

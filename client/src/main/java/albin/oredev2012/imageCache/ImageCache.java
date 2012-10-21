@@ -14,6 +14,8 @@ import com.googlecode.androidannotations.api.Scope;
 @EBean(scope = Scope.Singleton)
 public class ImageCache {
 
+	private static final int MEM_CACHE_SIZE = 4 * 1024 * 1024;
+
 	@Bean
 	protected ImageLoader imageLoader;
 
@@ -24,14 +26,15 @@ public class ImageCache {
 		void onImageLoaded(String url, Bitmap bitmap);
 	}
 
-	private LruCache<String, BitmapEntry> memCache;
+	private final LruCache<String, BitmapEntry> memCache;
 
 	public ImageCache() {
-		memCache = new LruCache<String, BitmapEntry>(4 * 1024 * 1024) {
+		memCache = new LruCache<String, BitmapEntry>(MEM_CACHE_SIZE) {
 			@Override
 			protected int sizeOf(String key, BitmapEntry value) {
-				if (value.bitmap == null)
+				if (value.bitmap == null) {
 					return 0;
+				}
 				return value.bitmap.getRowBytes() * value.bitmap.getHeight();
 			}
 		};
@@ -51,7 +54,7 @@ public class ImageCache {
 				return null;
 			}
 		}
-		return entry == null ? null : entry.bitmap;
+		return (entry == null) ? null : entry.bitmap;
 	}
 
 	public void cache(String url, OnImageLoadedListener callback) {
@@ -96,8 +99,9 @@ public class ImageCache {
 				BitmapEntry entry = memCache.get(url);
 				entry.bitmap = bitmap;
 			}
-			if (callback != null)
+			if (callback != null) {
 				callback.onImageLoaded(url, bitmap);
+			}
 		}
 	}
 
@@ -112,8 +116,9 @@ public class ImageCache {
 
 		@Override
 		public void onLoadFinished(boolean success, String url, Bitmap bitmap) {
-			if (!success)
+			if (!success) {
 				return;
+			}
 			fileCache.put(url, bitmap);
 			BitmapEntry entry;
 			synchronized (memCache) {
@@ -124,8 +129,9 @@ public class ImageCache {
 				}
 				entry.bitmap = bitmap;
 			}
-			for (OnImageLoadedListener listener : entry.listeners)
+			for (OnImageLoadedListener listener : entry.listeners) {
 				listener.onImageLoaded(url, bitmap);
+			}
 		}
 
 	}

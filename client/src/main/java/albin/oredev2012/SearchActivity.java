@@ -24,10 +24,10 @@ public class SearchActivity extends FragmentActivity implements ItemOpener {
 
 	@FragmentById
 	protected SearchFragment searchFragment;
-	
+
 	@FragmentById
 	protected SessionDetailFragment sessionDetailFragment;
-	
+
 	@FragmentById
 	protected SpeakerDetailFragment speakerDetailFragment;
 
@@ -42,20 +42,19 @@ public class SearchActivity extends FragmentActivity implements ItemOpener {
 		ft.hide(speakerDetailFragment);
 		ft.commit();
 	}
-	
-    @SuppressLint("NewApi")
+
+	@SuppressLint("NewApi")
 	@AfterViews
 	protected void initViews() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 	}
-	
+
 	@OptionsItem(android.R.id.home)
 	public void goHome() {
 		finish();
 	}
-
 
 	@Override
 	public void openItem(Item item) {

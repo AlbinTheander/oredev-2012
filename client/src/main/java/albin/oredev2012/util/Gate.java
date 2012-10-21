@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class Gate {
 
-	private AtomicBoolean isOpen = new AtomicBoolean(true);
+	private final AtomicBoolean isOpen = new AtomicBoolean(true);
 
 	/**
 	 * creates a new instance that is open after creation.

@@ -20,11 +20,11 @@ public class Session extends Item {
 
 	@DatabaseField
 	private String name;
-	
-	@DatabaseField(dataType=DataType.DATE_TIME)
+
+	@DatabaseField(dataType = DataType.DATE_TIME)
 	private DateTime startTime;
-	
-	@DatabaseField(dataType=DataType.DATE_TIME)
+
+	@DatabaseField(dataType = DataType.DATE_TIME)
 	private DateTime endTime;
 
 	@DatabaseField
@@ -38,12 +38,12 @@ public class Session extends Item {
 
 	private List<Speaker> speakers = Collections.emptyList();
 
-
 	Session() {
 		// For serialization
 	}
 
-	public Session(String id, String name, DateTime startTime, DateTime endTime, String track, String description) {
+	public Session(String id, String name, DateTime startTime,
+			DateTime endTime, String track, String description) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -53,6 +53,7 @@ public class Session extends Item {
 		this.description = description;
 	}
 
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -60,15 +61,15 @@ public class Session extends Item {
 	public String getName() {
 		return name;
 	}
-	
+
 	public LocalDate getDate() {
 		return startTime.toLocalDate();
 	}
-	
+
 	public LocalTime getStartTime() {
 		return startTime.toLocalTime();
 	}
-	
+
 	public Interval getTime() {
 		Interval interval = new Interval(startTime, endTime);
 		return interval;
@@ -89,13 +90,15 @@ public class Session extends Item {
 	public String getSpeakerIds() {
 		return speakerIds;
 	}
-	
+
 	@Override
 	public boolean contains(CharSequence s) {
-		if (name != null && name.toLowerCase().contains(s))
+		if (name != null && name.toLowerCase().contains(s)) {
 			return true;
-		if (description != null && description.toLowerCase().contains(s))
+		}
+		if (description != null && description.toLowerCase().contains(s)) {
 			return true;
+		}
 		return false;
 	}
 

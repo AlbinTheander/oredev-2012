@@ -30,10 +30,10 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
 
 	@Bean
 	protected Repository repo;
-	
+
 	@RootContext
 	protected Context context;
-	
+
 	@Bean
 	protected ImageCache imageCache;
 
@@ -42,8 +42,8 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
 
 	private Filter filter;
 
-	private OnImageLoadedListener refreshListOnImageLoaded = new OnImageLoadedListener() {
-		
+	private final OnImageLoadedListener refreshListOnImageLoaded = new OnImageLoadedListener() {
+
 		@Override
 		public void onImageLoaded(String url, Bitmap bitmap) {
 			notifyDataSetChanged();
@@ -68,7 +68,8 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
 	protected void finishInit(List<Item> items) {
 		allItems = items;
 	}
-	
+
+	@Override
 	@UiThread
 	public void notifyDataSetChanged() {
 		super.notifyDataSetChanged();
@@ -81,10 +82,11 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
 
 	@Override
 	public int getItemViewType(int position) {
-		if (activeItems.get(position) instanceof Session)
+		if (activeItems.get(position) instanceof Session) {
 			return 0;
-		else
+		} else {
 			return 1;
+		}
 	}
 
 	@Override
@@ -104,28 +106,40 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		View view = null;
 		Object item = getItem(position);
 		if (item instanceof Session) {
 			Session session = (Session) item;
-			SessionListItemView sessionView;
-			if (convertView == null)
-				sessionView = SessionListItemView_.build(context);
-			else 
-				sessionView = (SessionListItemView) convertView;
-			sessionView.bind(session);
-			return sessionView;
+			view = getSessionView(convertView, session);
 		} else if (item instanceof Speaker) {
 			Speaker speaker = (Speaker) item;
-			SpeakerListItemView speakerView;
-			if (convertView == null)
-				speakerView = SpeakerListItemView_.build(context);
-			else 
-				speakerView = (SpeakerListItemView) convertView;
-			Bitmap speakerImage = imageCache.getImage(speaker.getImageUrl(), true, refreshListOnImageLoaded);
-			speakerView.bind(speaker.getName(), speakerImage);
-			return speakerView;
+			view = getSpeakerView(convertView, speaker);
 		}
-		return null;
+		return view;
+	}
+
+	private View getSpeakerView(View convertView, Speaker speaker) {
+		SpeakerListItemView speakerView;
+		if (convertView == null) {
+			speakerView = SpeakerListItemView_.build(context);
+		} else {
+			speakerView = (SpeakerListItemView) convertView;
+		}
+		Bitmap speakerImage = imageCache.getImage(speaker.getImageUrl(), true,
+				refreshListOnImageLoaded);
+		speakerView.bind(speaker.getName(), speakerImage);
+		return speakerView;
+	}
+
+	private View getSessionView(View convertView, Session session) {
+		SessionListItemView sessionView;
+		if (convertView == null) {
+			sessionView = SessionListItemView_.build(context);
+		} else {
+			sessionView = (SessionListItemView) convertView;
+		}
+		sessionView.bind(session);
+		return sessionView;
 	}
 
 	@Override
@@ -138,20 +152,22 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
 
 	private class SearchFilter extends Filter {
 
-		private FilterResults EMPTY_RESULT = new FilterResults();
+		private final FilterResults EMPTY_RESULT = new FilterResults();
 		{
 			EMPTY_RESULT.count = 0;
 		}
 
 		@Override
 		protected FilterResults performFiltering(CharSequence constraint) {
-			if (allItems == null || constraint == null || constraint.length() < 3) {
+			if (allItems == null || constraint == null
+					|| constraint.length() < 3) {
 				return EMPTY_RESULT;
 			}
 			List<Item> items = new ArrayList<Item>();
 			for (Item item : allItems) {
-				if (item.contains(constraint))
+				if (item.contains(constraint)) {
 					items.add(item);
+				}
 			}
 			FilterResults result = new FilterResults();
 			result.values = items;

@@ -57,8 +57,9 @@ public class Repository {
 	public Speaker getSpeaker(String speakerId) {
 		List<Speaker> speakers = getSpeakers();
 		for (Speaker speaker : speakers) {
-			if (speakerId.equals(speaker.getId()))
+			if (speakerId.equals(speaker.getId())) {
 				return speaker;
+			}
 		}
 		return null;
 	}
@@ -66,12 +67,13 @@ public class Repository {
 	public Session getSession(String sessionId) {
 		List<Session> sessions = getSessions();
 		for (Session session : sessions) {
-			if (sessionId.equals(session.getId()))
+			if (sessionId.equals(session.getId())) {
 				return session;
+			}
 		}
 		return null;
 	}
-		
+
 	@Background
 	public void preloadData() {
 		loadData();
@@ -115,7 +117,7 @@ public class Repository {
 			speakerDao.callBatchTasks(new Callable<Void>() {
 
 				@Override
-				public Void call() throws Exception {
+				public Void call() {
 					for (Speaker speaker : speakerList) {
 						speakerDao.create(speaker);
 					}
@@ -127,7 +129,7 @@ public class Repository {
 			sessionDao.callBatchTasks(new Callable<Void>() {
 
 				@Override
-				public Void call() throws Exception {
+				public Void call() {
 					for (Session session : sessionList) {
 						sessionDao.create(session);
 					}

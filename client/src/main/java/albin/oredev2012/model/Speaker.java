@@ -8,21 +8,21 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
 public class Speaker extends Item {
-	
-	@DatabaseField(id=true)
+
+	@DatabaseField(id = true)
 	private String id;
-	
+
 	@DatabaseField
 	private String name;
-	
+
 	@DatabaseField
 	private String imageUrl;
-	
+
 	@DatabaseField
 	private String biograhpy;
-	
-	private List<Session> sessions = new ArrayList<Session>();
-	
+
+	private final List<Session> sessions = new ArrayList<Session>();
+
 	Speaker() {
 		// For serialization
 	}
@@ -34,6 +34,7 @@ public class Speaker extends Item {
 		this.biograhpy = biograhpy;
 	}
 
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -49,18 +50,19 @@ public class Speaker extends Item {
 	public String getBiograhpy() {
 		return biograhpy;
 	}
-	
+
 	public void addSession(Session session) {
 		sessions.add(session);
 	}
-	
+
 	public List<Session> getSessions() {
 		return sessions;
 	}
-	
+
 	@Override
 	public boolean contains(CharSequence s) {
-		return name.toLowerCase().contains(s) || biograhpy.toLowerCase().contains(s);
+		return name.toLowerCase().contains(s)
+				|| biograhpy.toLowerCase().contains(s);
 	}
 
 }

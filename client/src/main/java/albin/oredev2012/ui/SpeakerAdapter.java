@@ -43,7 +43,7 @@ public class SpeakerAdapter extends BaseAdapter implements
 
 	private Section[] sections = new Section[0];
 
-	private Gate imageLoadingGate = new Gate();
+	private final Gate imageLoadingGate = new Gate();
 
 	@AfterInject
 	protected void init() {
@@ -72,7 +72,8 @@ public class SpeakerAdapter extends BaseAdapter implements
 	private Section[] buildSections(List<Speaker> speakers) {
 		char lastName = ' ';
 		List<Section> sections = new ArrayList<Section>();
-		for (int i = 0; i < speakers.size(); i++) {
+		int size = speakers.size();
+		for (int i = 0; i < size; i++) {
 			Speaker speaker = speakers.get(i);
 			char speakerSection = speaker.getName().charAt(0);
 			if (speakerSection != lastName) {
@@ -86,13 +87,9 @@ public class SpeakerAdapter extends BaseAdapter implements
 	@UiThread
 	protected void updateSpeakers(List<Speaker> newSpeakers,
 			Section[] newSections) {
-		try {
-			speakers = newSpeakers;
-			sections = newSections;
-			notifyDataSetChanged();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		speakers = newSpeakers;
+		sections = newSections;
+		notifyDataSetChanged();
 	}
 
 	@UiThread
@@ -116,7 +113,7 @@ public class SpeakerAdapter extends BaseAdapter implements
 	public int getCount() {
 		return speakers.size();
 	}
-	
+
 	public Speaker getSpeaker(int id) {
 		return speakers.get(id);
 	}
@@ -206,11 +203,13 @@ public class SpeakerAdapter extends BaseAdapter implements
 
 	@Override
 	public int getSectionForPosition(int position) {
-		if (sections.length == 0)
+		if (sections.length == 0) {
 			return 0;
+		}
 		for (int i = 0; i < sections.length; i++) {
-			if (sections[i].pos > position)
-				return i == 0 ? 0 : i - 1;
+			if (sections[i].pos > position) {
+				return (i == 0) ? 0 : i - 1;
+			}
 		}
 		return sections.length - 1;
 	}
@@ -224,7 +223,7 @@ public class SpeakerAdapter extends BaseAdapter implements
 		String name;
 		int pos;
 
-		public Section(String name, int pos) {
+		private Section(String name, int pos) {
 			this.name = name;
 			this.pos = pos;
 		}

@@ -4,7 +4,7 @@ import java.io.Closeable;
 import java.io.IOException;
 
 public class StreamUtil {
-	
+
 	public static void closeSilently(Closeable stream) {
 		if (stream != null) {
 			try {

@@ -16,10 +16,10 @@ public class SessionListTimeItemView extends LinearLayout {
 
 	@ViewById
 	protected View content;
-	
+
 	@ViewById
 	protected TextView time;
-	
+
 	public SessionListTimeItemView(Context context) {
 		super(context);
 	}
@@ -32,5 +32,5 @@ public class SessionListTimeItemView extends LinearLayout {
 			content.setBackgroundResource(R.drawable.list_group_header_collapsed_bg);
 		}
 	}
-	
+
 }

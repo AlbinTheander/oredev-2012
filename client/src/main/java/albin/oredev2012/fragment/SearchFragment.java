@@ -27,13 +27,13 @@ public class SearchFragment extends Fragment {
 
 	@Bean
 	protected SearchAdapter adapter;
-	
+
 	private ItemOpener opener;
-	
+
 	public SearchFragment() {
 		setRetainInstance(true);
 	}
-	
+
 	public void setItemOpener(ItemOpener opener) {
 		this.opener = opener;
 	}
@@ -51,12 +51,12 @@ public class SearchFragment extends Fragment {
 		adapter.getFilter().filter(query);
 		list.setSelection(0);
 	}
-	
+
 	@ItemClick(R.id.list)
 	protected void onListItemClick(Item item) {
 		if (opener != null) {
 			opener.openItem(item);
 		}
 	}
-	
+
 }

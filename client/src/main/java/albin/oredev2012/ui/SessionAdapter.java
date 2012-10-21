@@ -13,16 +13,16 @@ import android.widget.BaseExpandableListAdapter;
 
 public class SessionAdapter extends BaseExpandableListAdapter {
 
-	private Context context;
+	private final Context context;
 
-	private List<List<Session>> sessions;
-	
+	private final List<List<Session>> sessions;
+
 	public SessionAdapter(Context context, List<Session> sessions) {
 		this.context = context;
 		LocalTime lastTime = null;
 		List<Session> currentList = null;
 		this.sessions = new ArrayList<List<Session>>();
-		for(Session s: sessions) {
+		for (Session s : sessions) {
 			if (!s.getStartTime().equals(lastTime)) {
 				lastTime = s.getStartTime();
 				currentList = new ArrayList<Session>();
@@ -30,13 +30,12 @@ public class SessionAdapter extends BaseExpandableListAdapter {
 			}
 			currentList.add(s);
 		}
-		
+
 	}
 
 	public Session getSession(int groupPosition, int childPosition) {
 		return sessions.get(groupPosition).get(childPosition);
 	}
-
 
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {

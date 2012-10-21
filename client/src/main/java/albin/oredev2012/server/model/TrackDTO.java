@@ -10,7 +10,7 @@ import org.simpleframework.xml.Root;
 public class TrackDTO {
 
 	@Attribute
-	 String name;
+	String name;
 
 	@ElementList
 	List<SessionDTO> sessions;

@@ -18,10 +18,10 @@ public class SpeakerSessionItemView extends LinearLayout {
 
 	@ViewById
 	protected TextView track;
-	
+
 	@ViewById
 	protected TextView time;
-	
+
 	@ViewById
 	protected TextView date;
 

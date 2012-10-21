@@ -13,8 +13,9 @@ public class StringUtil {
 		}
 		return null;
 	}
-	
-	public static final String collectionToCommaDelimitedString(Collection<?> coll) {
+
+	public static final String collectionToCommaDelimitedString(
+			Collection<?> coll) {
 		return StringUtils.collectionToCommaDelimitedString(coll);
 	}
 

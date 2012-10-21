@@ -61,8 +61,8 @@ public class RotatedTextButton extends Button {
 	private void init(AttributeSet attrs) {
 		TypedArray styles = getContext().obtainStyledAttributes(attrs,
 				R.styleable.rotated_text_button);
-		angle = styles.getInteger(R.styleable.rotated_text_button_text_angle,
-				-30);
+		angle = styles
+				.getInteger(R.styleable.rotated_text_button_text_angle, 0);
 		TextPaint paint = getPaint();
 		float absAngle = (angle < 0) ? -angle : angle;
 		float absAngleRadians = (float) (absAngle * Math.PI / 180);

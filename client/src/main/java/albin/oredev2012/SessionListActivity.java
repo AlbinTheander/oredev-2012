@@ -18,8 +18,7 @@ import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.session_list_activity)
-public class SessionListActivity extends FragmentActivity implements
-		ItemOpener {
+public class SessionListActivity extends FragmentActivity implements ItemOpener {
 
 	@FragmentById
 	protected SessionListPagerFragment sessionListPagerFragment;
@@ -37,7 +36,7 @@ public class SessionListActivity extends FragmentActivity implements
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 	}
-	
+
 	@Override
 	public void onAttachFragment(Fragment fragment) {
 		if (fragment instanceof SessionListFragment) {
@@ -57,8 +56,7 @@ public class SessionListActivity extends FragmentActivity implements
 		if (sessionDetailFragmentView != null) {
 			sessionDetailFragment.setSessionId(item.getId());
 		} else {
-			SessionDetailActivity_.intent(this).sessionId(item.getId())
-					.start();
+			SessionDetailActivity_.intent(this).sessionId(item.getId()).start();
 		}
 	}
 
