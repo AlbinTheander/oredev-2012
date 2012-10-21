@@ -32,6 +32,9 @@
             android:label="@string/speakers_title" >
         </activity>
         <activity android:name=".SessionDetailActivity_" />
+        <activity
+            android:name=".SearchActivity_"
+            android:label="@string/search_title" />
     </application>
 
 </manifest>

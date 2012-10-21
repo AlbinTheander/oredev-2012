@@ -20,7 +20,7 @@ public class LaunchActivity extends Activity {
 
 	@ViewById
 	protected View loadingProgress;
-	
+
 	@AfterInject
 	protected void init() {
 		repo.preloadData();
@@ -34,6 +34,11 @@ public class LaunchActivity extends Activity {
 	@Click(R.id.sessions_button)
 	protected void openSessions() {
 		SessionListActivity_.intent(this).start();
+	}
+
+	@Click(R.id.search_button)
+	protected void search() {
+		SearchActivity_.intent(this).start();
 	}
 
 	@Click(R.id.refresh_button)

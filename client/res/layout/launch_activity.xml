@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background" >
-
+    
     <ImageView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/sessions_button"
-        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="-30dp"
         android:background="@drawable/red_circle_button"
         android:text="@string/speakers_title"
@@ -44,7 +44,7 @@
         tools:context=".LaunchActivity" />
 
     <albin.oredev2012.ui.RotatedTextButton
-        android:id="@+id/refresh_button"
+        android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/speakers_button"
@@ -55,6 +55,20 @@
         android:textColor="#ffffffff"
         android:textStyle="bold"
         oredev:text_angle="-30"
+        tools:context=".LaunchActivity" />
+
+    <albin.oredev2012.ui.RotatedTextButton
+        android:id="@+id/refresh_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_button"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="-30dp"
+        android:background="@drawable/red_circle_button"
+        android:text="@string/action_refresh"
+        android:textColor="#ffffffff"
+        android:textStyle="bold"
+        oredev:text_angle="30"
         tools:context=".LaunchActivity" />
 
     <LinearLayout

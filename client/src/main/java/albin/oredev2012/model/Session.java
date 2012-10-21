@@ -13,7 +13,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "Session")
-public class Session {
+public class Session extends Item {
 
 	@DatabaseField(id = true)
 	private String id;
@@ -88,6 +88,15 @@ public class Session {
 
 	public String getSpeakerIds() {
 		return speakerIds;
+	}
+	
+	@Override
+	public boolean contains(CharSequence s) {
+		if (name != null && name.toLowerCase().contains(s))
+			return true;
+		if (description != null && description.toLowerCase().contains(s))
+			return true;
+		return false;
 	}
 
 	public void setSpeakers(List<Speaker> speakers) {

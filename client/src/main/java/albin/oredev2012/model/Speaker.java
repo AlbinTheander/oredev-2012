@@ -7,7 +7,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
-public class Speaker {
+public class Speaker extends Item {
 	
 	@DatabaseField(id=true)
 	private String id;
@@ -56,6 +56,11 @@ public class Speaker {
 	
 	public List<Session> getSessions() {
 		return sessions;
+	}
+	
+	@Override
+	public boolean contains(CharSequence s) {
+		return name.toLowerCase().contains(s) || biograhpy.toLowerCase().contains(s);
 	}
 
 }
