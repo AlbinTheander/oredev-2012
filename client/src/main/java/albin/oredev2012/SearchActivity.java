@@ -37,10 +37,13 @@ public class SearchActivity extends FragmentActivity implements ItemOpener {
 	@AfterViews
 	protected void init() {
 		searchFragment.setItemOpener(this);
-		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		ft.hide(sessionDetailFragment);
-		ft.hide(speakerDetailFragment);
-		ft.commit();
+		if (detailHolder != null) {
+			FragmentTransaction ft = getSupportFragmentManager()
+					.beginTransaction();
+			ft.hide(sessionDetailFragment);
+			ft.hide(speakerDetailFragment);
+			ft.commit();
+		}
 	}
 
 	@SuppressLint("NewApi")
