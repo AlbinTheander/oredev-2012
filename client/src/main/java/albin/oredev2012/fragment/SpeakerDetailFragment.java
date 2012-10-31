@@ -11,6 +11,7 @@ import albin.oredev2012.ui.SpeakerSessionItemView_;
 import albin.oredev2012.ui.TextAroundImageLayout;
 import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -30,10 +31,13 @@ public class SpeakerDetailFragment extends Fragment {
 
 	@ViewById(R.id.speaker_info)
 	protected TextAroundImageLayout speakerInfo;
+	
+	@ViewById(R.id.sessions_header)
+	protected View sessionsHeader;
 
 	@ViewById(R.id.sessions)
 	protected ViewGroup sessions;
-
+	
 	@Bean
 	protected Repository repo;
 
@@ -99,8 +103,10 @@ public class SpeakerDetailFragment extends Fragment {
 
 	private void showSessions() {
 		sessions.removeAllViews();
+		if (speaker.getSessions().size() > 0)
+			sessionsHeader.setVisibility(View.VISIBLE);
 		for (Session session : speaker.getSessions()) {
-			SpeakerSessionItemView sessionView = SpeakerSessionItemView_
+			SpeakerSessionItemView sessionView = SpeakerSessionItemView_ 
 					.build(getActivity());
 			sessionView.bind(session);
 			sessions.addView(sessionView);

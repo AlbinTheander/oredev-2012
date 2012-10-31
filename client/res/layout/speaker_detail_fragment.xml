@@ -48,7 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/speaker_info"
             android:text="@string/sessions_title"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="invisible" />
 
         <LinearLayout
             android:id="@+id/sessions"
