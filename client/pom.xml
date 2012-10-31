@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>albin.oredev2012</groupId>
-	<artifactId>android-client</artifactId>
+	<artifactId>oredev2012</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<packaging>apk</packaging>
 	<name>oredev 2012 - Android client</name>
@@ -83,6 +83,32 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jarsigner-plugin</artifactId>
+				<version>1.2</version>
+				<executions>
+					<execution>
+						<id>sign-it</id>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+						<phase>package</phase>
+						<configuration>
+							<arguments>
+								<argument>-sigalg</argument>
+								<argument>MD5withRSA</argument>
+								<argument>-digestalg</argument>
+								<argument>SHA1</argument>
+							</arguments>
+							<keystore>${project.basedir}/cert/release.keystore</keystore>
+							<alias>release</alias>
+							<archive>target/${project.build.finalName}.${project.packaging}
+							</archive>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 				<artifactId>android-maven-plugin</artifactId>
 				<version>3.3.0</version>
@@ -94,6 +120,9 @@
 					<sdk>
 						<platform>14</platform>
 					</sdk>
+					<sign>
+						<debug>false</debug>
+					</sign>
 					<deleteConflictingFiles>true</deleteConflictingFiles>
 					<undeployBeforeDeploy>true</undeployBeforeDeploy>
 				</configuration>
