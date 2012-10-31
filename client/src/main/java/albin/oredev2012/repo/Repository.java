@@ -97,8 +97,12 @@ public class Repository {
 	private void loadDataFromServer() {
 		ProgramDTO program = oredevApi.getProgram();
 		DtoConverter converter = new DtoConverter(program);
-		sessionList = converter.getSessions();
-		speakerList = converter.getSpeakers();
+		List<Session> newSessionList = converter.getSessions();
+		List<Speaker> newSpeakerList = converter.getSpeakers();
+		if (newSessionList != null && newSessionList.size() > 0) {
+			sessionList = newSessionList;
+			speakerList = newSpeakerList;
+		}
 	}
 
 	private void loadDataFromDb() {

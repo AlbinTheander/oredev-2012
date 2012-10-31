@@ -23,7 +23,7 @@ public class LaunchActivity extends Activity {
 
 	@AfterInject
 	protected void init() {
-		repo.preloadData();
+		loadData(false);
 	}
 
 	@Click(R.id.speakers_button)
@@ -43,13 +43,17 @@ public class LaunchActivity extends Activity {
 
 	@Click(R.id.refresh_button)
 	protected void refreshFromServer() {
-		setLoadingProgressVisible(true);
-		refreshData();
+		loadData(true);
 	}
 
 	@Background
-	protected void refreshData() {
-		repo.refreshFromServer();
+	protected void loadData(boolean forceReload) {
+		setLoadingProgressVisible(true);
+		if (forceReload) {
+			repo.refreshFromServer();
+		} else {
+			repo.refreshFromServer();
+		}
 		setLoadingProgressVisible(false);
 	}
 
