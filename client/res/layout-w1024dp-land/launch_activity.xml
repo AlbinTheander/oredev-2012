@@ -15,6 +15,14 @@
         android:contentDescription="@string/oredev_logo"
         android:src="@drawable/logo_oredev" />
 
+    <TextView
+        style="@style/bigText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_centerHorizontal="true"
+        android:text="@string/year_2012" />
+
     <TableLayout
         android:id="@+id/button_layout"
         android:layout_width="wrap_content"
@@ -39,7 +47,6 @@
                 android:text="@string/speakers_title"
                 oredev:text_angle="30"
                 tools:context=".LaunchActivity" />
-
         </TableRow>
 
         <TableRow>

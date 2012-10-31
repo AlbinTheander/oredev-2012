@@ -10,10 +10,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:contentDescription="@string/oredev_logo"
         android:src="@drawable/logo_oredev" />
+
+    <TextView
+        style="@style/bigText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_centerHorizontal="true"
+        android:text="@string/year_2012" />
 
     <TableLayout
         android:id="@+id/button_layout"
