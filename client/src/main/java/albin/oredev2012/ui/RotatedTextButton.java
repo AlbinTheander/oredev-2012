@@ -4,6 +4,7 @@ import albin.oredev2012.R;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.FloatMath;
@@ -14,6 +15,7 @@ public class RotatedTextButton extends Button {
 	private int angle;
 	private int myWidth;
 	private int myHeight;
+	private Rect clip = new Rect();
 
 	public RotatedTextButton(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -78,9 +80,18 @@ public class RotatedTextButton extends Button {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		canvas.save();
-		canvas.rotate(angle, canvas.getWidth() / 2, canvas.getHeight() / 2);
+		int xCenter;
+		int yCenter;
+		canvas.getClipBounds(clip);
+		if (clip.isEmpty()) {
+			xCenter = canvas.getWidth() / 2;
+			yCenter = canvas.getHeight() / 2;
+		} else {
+			xCenter = clip.width() / 2 + clip.left;
+			yCenter = clip.height() / 2 + clip.top;
+		}
+		canvas.rotate(angle, xCenter, yCenter);
 		super.onDraw(canvas);
 		canvas.restore();
 	}
-
 }

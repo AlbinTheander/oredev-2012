@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:oredev="http://schemas.android.com/apk/res/albin.oredev2012"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -32,39 +31,35 @@
 
         <TableRow>
 
-            <albin.oredev2012.ui.RotatedTextButton
+            <Button
                 android:id="@+id/sessions_button"
                 style="@style/launch_view_button"
                 android:layout_height="fill_parent"
                 android:text="@string/sessions_title"
-                oredev:text_angle="30"
                 tools:context=".LaunchActivity" />
 
-            <albin.oredev2012.ui.RotatedTextButton
+            <Button
                 android:id="@+id/speakers_button"
                 style="@style/launch_view_button"
                 android:layout_height="fill_parent"
                 android:text="@string/speakers_title"
-                oredev:text_angle="30"
                 tools:context=".LaunchActivity" />
         </TableRow>
 
         <TableRow>
 
-            <albin.oredev2012.ui.RotatedTextButton
+            <Button
                 android:id="@+id/search_button"
                 style="@style/launch_view_button"
                 android:layout_height="fill_parent"
                 android:text="@string/action_search"
-                oredev:text_angle="30"
                 tools:context=".LaunchActivity" />
 
-            <albin.oredev2012.ui.RotatedTextButton
+            <Button
                 android:id="@+id/refresh_button"
                 style="@style/launch_view_button"
                 android:layout_height="fill_parent"
                 android:text="@string/action_refresh"
-                oredev:text_angle="30"
                 tools:context=".LaunchActivity" />
         </TableRow>
     </TableLayout>
