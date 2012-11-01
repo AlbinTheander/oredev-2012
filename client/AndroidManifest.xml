@@ -1,40 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="albin.oredev2012"
-    android:versionCode="11"
-    android:versionName="1.1-SNAPSHOT" >
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="120" android:versionName="1.2-SNAPSHOT" package="albin.oredev2012">
 
-    <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="15" />
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="15"/>
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
-    <application
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity android:name=".LaunchActivity_" >
+    <application android:debuggable="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:theme="@style/AppTheme">
+        <activity android:name=".LaunchActivity_">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".SpeakerListActivity_" >
+        <activity android:name=".SpeakerListActivity_">
         </activity>
-        <activity
-            android:name=".SessionListActivity_"
-            android:label="Sessions" >
+        <activity android:label="Sessions" android:name=".SessionListActivity_">
         </activity>
-        <activity
-            android:name=".SpeakerDetailActivity_"
-            android:label="@string/speakers_title" >
+        <activity android:label="@string/speakers_title" android:name=".SpeakerDetailActivity_">
         </activity>
-        <activity android:name=".SessionDetailActivity_" />
-        <activity
-            android:name=".SearchActivity_"
-            android:label="@string/search_title" />
+        <activity android:name=".SessionDetailActivity_"/>
+        <activity android:label="@string/search_title" android:name=".SearchActivity_"/>
     </application>
 
 </manifest>
