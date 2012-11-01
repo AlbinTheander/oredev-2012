@@ -8,6 +8,13 @@
 	<packaging>apk</packaging>
 	<name>oredev 2012 - Android client</name>
 
+	<scm>
+		<connection>scm:git:file://.</connection>
+		<developerConnection>scm:git:file://.</developerConnection>
+		<tag>master</tag>
+		<url>scm:git:file://.</url>
+	</scm>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
